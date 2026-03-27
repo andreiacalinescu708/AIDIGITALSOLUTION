@@ -1018,7 +1018,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollToSection('hero')}>
-              <img src="/assets/logo.png" alt="AI Digital Solutions" className="w-10 h-10 object-contain" />
+              <img src="/assets/logo64.png" alt="AI Digital Solutions" className="w-10 h-10 object-contain rounded-lg" />
               <span className="text-xl font-bold text-white">AI Digital Solutions</span>
             </div>
 
@@ -1512,7 +1512,7 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
-                <img src="/assets/logo.png" alt="AI Digital Solutions" className="w-8 h-8 object-contain" />
+                <img src="/assets/logo64.png" alt="AI Digital Solutions" className="w-8 h-8 object-contain rounded-lg" />
                 <span className="text-lg font-bold">AI Digital Solutions</span>
               </div>
               <p className="text-zinc-400 mb-4">{t('footer_tagline')}</p>
