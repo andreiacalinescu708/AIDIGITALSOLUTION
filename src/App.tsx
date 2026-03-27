@@ -1011,12 +1011,6 @@ function App() {
     setTimeout(() => setContactFormSubmitted(false), 5000)
   }
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setNewsletterSubmitted(true)
-    setTimeout(() => setNewsletterSubmitted(false), 5000)
-  }
-
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Navigation */}
