@@ -30,18 +30,15 @@ import {
   Code,
   Rocket,
   Check,
-  Star,
-  Quote,
+  Globe,
+  Smartphone,
+
   Send,
   X,
   MessageCircle,
   Shield,
-  Award,
-  Landmark,
-  Store,
-  Factory,
-  Cpu,
-  Globe
+
+
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
@@ -69,8 +66,6 @@ const translations: Translations = {
   // Navigation
   nav_services: { ro: 'Servicii', en: 'Services' },
   nav_how: { ro: 'Cum Funcționează', en: 'How It Works' },
-  nav_cases: { ro: 'Cazuri', en: 'Cases' },
-  nav_pricing: { ro: 'Prețuri', en: 'Pricing' },
   nav_contact: { ro: 'Contact', en: 'Contact' },
   nav_faq: { ro: 'FAQ', en: 'FAQ' },
   
@@ -131,16 +126,6 @@ const translations: Translations = {
     en: 'See time and money savings in real-time.' 
   },
   
-  // Case Studies
-  cases_title: { ro: 'Studii de Caz', en: 'Case Studies' },
-  cases_subtitle: { 
-    ro: 'Vezi cum am ajutat alte afaceri să crească', 
-    en: 'See how we helped other businesses grow' 
-  },
-  cases_before: { ro: 'Înainte', en: 'Before' },
-  cases_after: { ro: 'După', en: 'After' },
-  cases_result: { ro: 'Rezultat', en: 'Result' },
-  
   // Services Section
   services_title: { ro: 'Soluții de Automatizare', en: 'Automation Solutions' },
   services_subtitle: { 
@@ -151,23 +136,6 @@ const translations: Translations = {
     ro: 'Click pe orice soluție pentru a vedea detaliile', 
     en: 'Click on any solution to see details' 
   },
-  
-  // Pricing
-  pricing_title: { ro: 'Prețuri Transparente', en: 'Transparent Pricing' },
-  pricing_subtitle: { 
-    ro: 'Alege pachetul potrivit pentru afacerea ta', 
-    en: 'Choose the right package for your business' 
-  },
-  pricing_popular: { ro: 'Cel mai popular', en: 'Most popular' },
-  pricing_starter: { ro: 'Starter', en: 'Starter' },
-  pricing_business: { ro: 'Business', en: 'Business' },
-  pricing_enterprise: { ro: 'Enterprise', en: 'Enterprise' },
-  pricing_month: { ro: '/lună', en: '/month' },
-  pricing_get_started: { ro: 'Începe Acum', en: 'Get Started' },
-  pricing_contact: { ro: 'Contactează-ne', en: 'Contact Us' },
-  
-  // Testimonials
-  testimonials_title: { ro: 'Ce Spun Clienții Noștri', en: 'What Our Clients Say' },
   
   // FAQ
   faq_title: { ro: 'Întrebări Frecvente', en: 'Frequently Asked Questions' },
@@ -195,19 +163,6 @@ const translations: Translations = {
   contact_form_success: { ro: 'Mesaj trimis cu succes!', en: 'Message sent successfully!' },
   contact_cta: { ro: 'Solicită Ofertă', en: 'Request Quote' },
   
-  // Newsletter
-  newsletter_title: { ro: 'Abonează-te la Newsletter', en: 'Subscribe to Newsletter' },
-  newsletter_subtitle: { 
-    ro: 'Primești tips despre automatizare și AI direct în inbox', 
-    en: 'Get tips about automation and AI directly in your inbox' 
-  },
-  newsletter_placeholder: { ro: 'Adresa ta de email', en: 'Your email address' },
-  newsletter_button: { ro: 'Abonează-te', en: 'Subscribe' },
-  newsletter_success: { ro: 'Te-ai abonat cu succes!', en: 'Successfully subscribed!' },
-  
-  // Social Proof
-  trust_title: { ro: 'Au Încredere în Noi', en: 'Trusted By' },
-  
   // Cookie Consent
   cookie_text: { 
     ro: 'Folosim cookie-uri pentru a îmbunătăți experiența ta. Continuând, ești de acord cu politica noastră.', 
@@ -229,6 +184,14 @@ const translations: Translations = {
   footer_tagline: { 
     ro: 'Transformăm afaceri prin inteligență artificială', 
     en: 'Transforming businesses through artificial intelligence' 
+  },
+  footer_powered: { 
+    ro: 'Powered by AI Digital Solutions', 
+    en: 'Powered by AI Digital Solutions' 
+  },
+  footer_openbill: {
+    ro: 'www.openbill.ro - Platformă de facturare dezvoltată de AI Digital Solutions',
+    en: 'www.openbill.ro - Invoicing platform developed by AI Digital Solutions'
   },
   footer_privacy: { ro: 'Politica de Confidențialitate', en: 'Privacy Policy' },
   footer_terms: { ro: 'Termeni și Condiții', en: 'Terms and Conditions' },
@@ -254,6 +217,31 @@ interface Service {
 
 const services: Service[] = [
   {
+    id: 'website-apps',
+    icon: <Smartphone className="w-8 h-8" />,
+    title: { 
+      ro: 'Website-uri și Aplicații Android', 
+      en: 'Websites & Android Apps' 
+    },
+    shortDesc: { 
+      ro: 'Dezvoltare website-uri moderne și aplicații mobile Android personalizate', 
+      en: 'Modern website development and custom Android mobile applications' 
+    },
+    fullDesc: { 
+      ro: 'Creăm website-uri profesionale, moderne și optimizate pentru toate dispozitivele, precum și aplicații Android native pentru afacerea ta. De la site-uri de prezentare, magazine online, până la aplicații mobile complexe cu funcționalități personalizate.',
+      en: 'We create professional, modern websites optimized for all devices, as well as native Android applications for your business. From presentation websites, online stores, to complex mobile applications with custom functionalities.'
+    },
+    features: {
+      ro: ['Design responsive', 'Optimizare SEO', 'Aplicații Android native', 'Panou administrare', 'Integrare API-uri', 'Suport tehnic'],
+      en: ['Responsive design', 'SEO optimization', 'Native Android apps', 'Admin panel', 'API integration', 'Technical support']
+    },
+    benefits: {
+      ro: ['Prezență online profesională', 'Accesibilitate pe mobil', 'Experiență utilizator îmbunătățită', 'Creștere vizibilitate'],
+      en: ['Professional online presence', 'Mobile accessibility', 'Improved user experience', 'Increased visibility']
+    },
+    price: { ro: 'începând de la 100 EUR', en: 'starting from 100 EUR' }
+  },
+  {
     id: 'telegram-bot',
     icon: <Bot className="w-8 h-8" />,
     title: { 
@@ -276,7 +264,7 @@ const services: Service[] = [
       ro: ['Reducere cu 68% a timpului de răspuns', 'Disponibilitate permanentă', 'Economisire resurse umane'],
       en: ['68% reduction in response time', 'Permanent availability', 'Human resource savings']
     },
-    price: { ro: 'de la 800 EUR', en: 'from 800 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'invoices',
@@ -301,7 +289,7 @@ const services: Service[] = [
       ro: ['Economisire 15+ ore pe săptămână', 'Eliminare erori de introducere', 'Procesare mai rapidă'],
       en: ['Save 15+ hours per week', 'Eliminate entry errors', 'Faster processing']
     },
-    price: { ro: 'de la 1.200 EUR', en: 'from 1.200 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'crm',
@@ -326,7 +314,7 @@ const services: Service[] = [
       ro: ['Creștere cu 40% a conversiilor', 'Pipeline curat și organizat', 'Forecasting precis'],
       en: ['40% increase in conversions', 'Clean and organized pipeline', 'Accurate forecasting']
     },
-    price: { ro: 'de la 1.500 EUR', en: 'from 1.500 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'email-marketing',
@@ -351,7 +339,7 @@ const services: Service[] = [
       ro: ['ROI măsurabil', 'Engagement crescut', 'Loyalty îmbunătățit'],
       en: ['Measurable ROI', 'Increased engagement', 'Improved loyalty']
     },
-    price: { ro: 'de la 600 EUR', en: 'from 600 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'project-management',
@@ -376,7 +364,7 @@ const services: Service[] = [
       ro: ['Reducere timp de coordonare', 'Mai puține deadline-uri ratate', 'Vizibilitate completă'],
       en: ['Reduced coordination time', 'Fewer missed deadlines', 'Complete visibility']
     },
-    price: { ro: 'de la 900 EUR', en: 'from 900 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'hr',
@@ -401,7 +389,7 @@ const services: Service[] = [
       ro: ['Procese mai rapide', 'Experiență mai bună pentru candidați', 'Conformitate îmbunătățită'],
       en: ['Faster processes', 'Better candidate experience', 'Improved compliance']
     },
-    price: { ro: 'de la 1.800 EUR', en: 'from 1.800 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'inventory',
@@ -426,7 +414,7 @@ const services: Service[] = [
       ro: ['Reducere stoc blocat', 'Mai puține rupturi de stoc', 'Cash flow îmbunătățit'],
       en: ['Reduced dead stock', 'Fewer stockouts', 'Improved cash flow']
     },
-    price: { ro: 'de la 1.400 EUR', en: 'from 1.400 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'financial-reports',
@@ -451,7 +439,7 @@ const services: Service[] = [
       ro: ['Decizii mai rapide', 'Transparență financiară', 'Economisire timp raportare'],
       en: ['Faster decisions', 'Financial transparency', 'Time savings on reporting']
     },
-    price: { ro: 'de la 1.000 EUR', en: 'from 1.000 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'website-chatbot',
@@ -476,7 +464,7 @@ const services: Service[] = [
       ro: ['Creștere conversii', 'Suport 24/7', 'Date valoroase despre clienți'],
       en: ['Increased conversions', '24/7 support', 'Valuable customer data']
     },
-    price: { ro: 'de la 700 EUR', en: 'from 700 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'calendar',
@@ -501,7 +489,7 @@ const services: Service[] = [
       ro: ['Reducere no-show-uri', 'Timp economisit', 'Experiență clienți îmbunătățită'],
       en: ['Reduced no-shows', 'Time saved', 'Improved customer experience']
     },
-    price: { ro: 'de la 500 EUR', en: 'from 500 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'ticketing',
@@ -526,7 +514,7 @@ const services: Service[] = [
       ro: ['Timp de rezolvare redus', 'Satisfacție clienți crescută', 'Eficiență echipă'],
       en: ['Reduced resolution time', 'Increased customer satisfaction', 'Team efficiency']
     },
-    price: { ro: 'de la 1.100 EUR', en: 'from 1.100 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'social-media',
@@ -551,7 +539,7 @@ const services: Service[] = [
       ro: ['Prezență constantă', 'Economisire timp', 'Engagement crescut'],
       en: ['Consistent presence', 'Time savings', 'Increased engagement']
     },
-    price: { ro: 'de la 400 EUR', en: 'from 400 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'documents',
@@ -576,7 +564,7 @@ const services: Service[] = [
       ro: ['Procese mai rapide', 'Hârtie eliminată', 'Conformitate legală'],
       en: ['Faster processes', 'Paper eliminated', 'Legal compliance']
     },
-    price: { ro: 'de la 800 EUR', en: 'from 800 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'onboarding',
@@ -601,7 +589,7 @@ const services: Service[] = [
       ro: ['Retenție îmbunătățită', 'Churn redus', 'Experiență premium'],
       en: ['Improved retention', 'Reduced churn', 'Premium experience']
     },
-    price: { ro: 'de la 900 EUR', en: 'from 900 EUR' }
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   },
   {
     id: 'notifications',
@@ -626,45 +614,7 @@ const services: Service[] = [
       ro: ['Reacție rapidă', 'Probleme prevenite', 'Control total'],
       en: ['Quick reaction', 'Prevented issues', 'Total control']
     },
-    price: { ro: 'de la 600 EUR', en: 'from 600 EUR' }
-  }
-]
-
-// Case Studies Data
-const caseStudies = [
-  {
-    id: 1,
-    company: { ro: 'Contabilitate Pro SRL', en: 'Pro Accounting LLC' },
-    industry: { ro: 'Servicii Contabile', en: 'Accounting Services' },
-    icon: <Landmark className="w-6 h-6" />,
-    before: { ro: '20 ore/săptămână pe procesare facturi', en: '20 hours/week on invoice processing' },
-    after: { ro: '2 ore/săptămână cu automatizare OCR', en: '2 hours/week with OCR automation' },
-    result: { ro: 'Economie de 18 ore/săptămână și reducere erori cu 95%', en: 'Save 18 hours/week and 95% error reduction' },
-    savings: '€28,000',
-    image: 'bg-gradient-to-br from-blue-500 to-blue-700'
-  },
-  {
-    id: 2,
-    company: { ro: 'TechRetail.ro', en: 'TechRetail.com' },
-    industry: { ro: 'E-commerce', en: 'E-commerce' },
-    icon: <Store className="w-6 h-6" />,
-    before: { ro: 'Rata de conversie 1.2%, suport manual', en: '1.2% conversion rate, manual support' },
-    after: { ro: 'Chatbot 24/7 și follow-up automat', en: '24/7 chatbot and automatic follow-up' },
-    result: { ro: 'Conversie crescută la 3.8%, suport non-stop', en: 'Conversion increased to 3.8%, 24/7 support' },
-    savings: '€45,000',
-    image: 'bg-gradient-to-br from-purple-500 to-purple-700'
-  },
-  {
-    id: 3,
-    company: { ro: 'Constructii Rapid SA', en: 'Rapid Construction Inc' },
-    industry: { ro: 'Construcții', en: 'Construction' },
-    icon: <Factory className="w-6 h-6" />,
-    before: { ro: 'Gestionare stocuri manuală, rupturi frecvente', en: 'Manual inventory, frequent stockouts' },
-    before2: { ro: 'Proiecte întârziate din lipsa materialelor', en: 'Projects delayed due to material shortages' },
-    after: { ro: 'Sistem inteligent cu predicție cerere', en: 'Smart system with demand forecasting' },
-    result: { ro: 'Zero rupturi de stoc, proiecte la timp', en: 'Zero stockouts, projects on time' },
-    savings: '€62,000',
-    image: 'bg-gradient-to-br from-orange-500 to-orange-700'
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
   }
 ]
 
@@ -733,177 +683,6 @@ const faqData = {
 }
 
 // Pricing Data
-const pricingPlans = {
-  ro: [
-    {
-      name: 'Starter',
-      price: '499',
-      period: 'EUR/lună',
-      description: 'Ideal pentru firme mici care încep automatizarea',
-      features: [
-        '1 automatizare la alegere',
-        'Până la 5 utilizatori',
-        'Suport email',
-        'Rapoarte lunare',
-        'Backup zilnic',
-        'Integrare de bază'
-      ],
-      cta: 'Începe Acum',
-      popular: false
-    },
-    {
-      name: 'Business',
-      price: '1.299',
-      period: 'EUR/lună',
-      description: 'Pentru firme în creștere cu nevoi multiple',
-      features: [
-        '3 automatizări incluse',
-        'Până la 25 utilizatori',
-        'Suport prioritar 24/7',
-        'Rapoarte săptămânale',
-        'Backup în timp real',
-        'Integrări avansate',
-        'Training inclus',
-        'API access'
-      ],
-      cta: 'Cel mai popular',
-      popular: true
-    },
-    {
-      name: 'Enterprise',
-      price: 'Custom',
-      period: '',
-      description: 'Soluții personalizate pentru corporații',
-      features: [
-        'Automatizări nelimitate',
-        'Utilizatori nelimitați',
-        'Manager de cont dedicat',
-        'Rapoarte custom',
-        'SLA garantat',
-        'On-premise opțiune',
-        'Audit securitate',
-        'Dezvoltare custom'
-      ],
-      cta: 'Contactează-ne',
-      popular: false
-    }
-  ],
-  en: [
-    {
-      name: 'Starter',
-      price: '499',
-      period: 'EUR/month',
-      description: 'Ideal for small businesses starting automation',
-      features: [
-        '1 automation of choice',
-        'Up to 5 users',
-        'Email support',
-        'Monthly reports',
-        'Daily backup',
-        'Basic integration'
-      ],
-      cta: 'Get Started',
-      popular: false
-    },
-    {
-      name: 'Business',
-      price: '1.299',
-      period: 'EUR/month',
-      description: 'For growing businesses with multiple needs',
-      features: [
-        '3 automations included',
-        'Up to 25 users',
-        'Priority 24/7 support',
-        'Weekly reports',
-        'Real-time backup',
-        'Advanced integrations',
-        'Training included',
-        'API access'
-      ],
-      cta: 'Most Popular',
-      popular: true
-    },
-    {
-      name: 'Enterprise',
-      price: 'Custom',
-      period: '',
-      description: 'Custom solutions for corporations',
-      features: [
-        'Unlimited automations',
-        'Unlimited users',
-        'Dedicated account manager',
-        'Custom reports',
-        'Guaranteed SLA',
-        'On-premise option',
-        'Security audit',
-        'Custom development'
-      ],
-      cta: 'Contact Us',
-      popular: false
-    }
-  ]
-}
-
-// Testimonials Data
-const testimonials = {
-  ro: [
-    {
-      name: 'Maria Popescu',
-      role: 'Director General',
-      company: 'Contabilitate Pro SRL',
-      content: 'Am economisit peste 20 de ore pe săptămână cu sistemul de procesare automată a facturilor. Echipa poate acum să se concentreze pe activități cu adevărat importante.',
-      rating: 5
-    },
-    {
-      name: 'Andrei Ionescu',
-      role: 'CEO',
-      company: 'TechRetail.ro',
-      content: 'Chatbot-ul a crescut conversiile cu 200%. Clienții sunt mulțumiți că primesc răspunsuri instant, iar noi economisim costuri cu suportul.',
-      rating: 5
-    },
-    {
-      name: 'Cristina Dumitrescu',
-      role: 'HR Manager',
-      company: 'Constructii Rapid SA',
-      content: 'Automatizarea HR ne-a schimbat complet modul de recrutare. Procesul care dura 2 săptămâni acum se face în 3 zile. Candidații sunt impresionați de viteza noastră.',
-      rating: 5
-    }
-  ],
-  en: [
-    {
-      name: 'Maria Popescu',
-      role: 'General Manager',
-      company: 'Pro Accounting LLC',
-      content: 'We saved over 20 hours per week with the automated invoice processing system. The team can now focus on truly important activities.',
-      rating: 5
-    },
-    {
-      name: 'Andrei Ionescu',
-      role: 'CEO',
-      company: 'TechRetail.com',
-      content: 'The chatbot increased conversions by 200%. Customers are happy to get instant responses, and we save on support costs.',
-      rating: 5
-    },
-    {
-      name: 'Cristina Dumitrescu',
-      role: 'HR Manager',
-      company: 'Rapid Construction Inc',
-      content: 'HR automation completely changed our recruitment process. What used to take 2 weeks now takes 3 days. Candidates are impressed by our speed.',
-      rating: 5
-    }
-  ]
-}
-
-// Trusted companies
-const trustedCompanies = [
-  { name: 'Banca Transilvania', icon: <Landmark className="w-8 h-8" /> },
-  { name: 'eMAG', icon: <Store className="w-8 h-8" /> },
-  { name: 'Oracle', icon: <Cpu className="w-8 h-8" /> },
-  { name: 'Microsoft', icon: <Globe className="w-8 h-8" /> },
-  { name: 'UiPath', icon: <Bot className="w-8 h-8" /> },
-  { name: 'Bitdefender', icon: <Shield className="w-8 h-8" /> },
-]
-
 // Animated Section Component
 function AnimatedSection({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const ref = useRef(null)
@@ -1203,7 +982,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [contactFormSubmitted, setContactFormSubmitted] = useState(false)
-  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false)
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -1257,12 +1036,6 @@ function App() {
               <button onClick={() => scrollToSection('how')} className="text-zinc-400 hover:text-cyan-400 transition-colors font-medium text-sm">
                 {t('nav_how')}
               </button>
-              <button onClick={() => scrollToSection('cases')} className="text-zinc-400 hover:text-cyan-400 transition-colors font-medium text-sm">
-                {t('nav_cases')}
-              </button>
-              <button onClick={() => scrollToSection('pricing')} className="text-zinc-400 hover:text-cyan-400 transition-colors font-medium text-sm">
-                {t('nav_pricing')}
-              </button>
               <button onClick={() => scrollToSection('faq')} className="text-zinc-400 hover:text-cyan-400 transition-colors font-medium text-sm">
                 {t('nav_faq')}
               </button>
@@ -1299,12 +1072,6 @@ function App() {
                   </button>
                   <button onClick={() => scrollToSection('how')} className="text-left text-lg font-medium text-zinc-300 hover:text-cyan-400">
                     {t('nav_how')}
-                  </button>
-                  <button onClick={() => scrollToSection('cases')} className="text-left text-lg font-medium text-zinc-300 hover:text-cyan-400">
-                    {t('nav_cases')}
-                  </button>
-                  <button onClick={() => scrollToSection('pricing')} className="text-left text-lg font-medium text-zinc-300 hover:text-cyan-400">
-                    {t('nav_pricing')}
                   </button>
                   <button onClick={() => scrollToSection('faq')} className="text-left text-lg font-medium text-zinc-300 hover:text-cyan-400">
                     {t('nav_faq')}
@@ -1407,7 +1174,7 @@ function App() {
                 size="lg" 
                 variant="outline"
                 onClick={() => scrollToSection('services')}
-                className="border-zinc-700 text-white hover:bg-zinc-900 px-8 py-6 text-lg rounded-xl"
+                className="border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-300 px-8 py-6 text-lg rounded-xl font-semibold"
               >
                 {t('hero_cta2')}
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -1490,58 +1257,6 @@ function App() {
                   <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
                   <p className="text-zinc-400">{step.desc}</p>
                 </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Case Studies Section */}
-      <section id="cases" className="py-20 bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                {t('cases_title')}
-              </h2>
-              <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-                {t('cases_subtitle')}
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {caseStudies.map((study) => (
-              <AnimatedSection key={study.id}>
-                <Card className="overflow-hidden h-full bg-zinc-900 border-zinc-800">
-                  <div className={`h-32 ${study.image} flex items-center justify-center`}>
-                    <div className="text-white/90">{study.icon}</div>
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="text-xl text-white">{study.company[lang]}</CardTitle>
-                    <CardDescription className="text-zinc-400">{study.industry[lang]}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <div className="flex items-start gap-2">
-                        <span className="text-red-400 font-semibold text-sm">{t('cases_before')}:</span>
-                        <span className="text-zinc-400 text-sm">{study.before[lang]}</span>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <span className="text-cyan-400 font-semibold text-sm">{t('cases_after')}:</span>
-                        <span className="text-zinc-400 text-sm">{study.after[lang]}</span>
-                      </div>
-                    </div>
-                    <div className="bg-zinc-800 rounded-lg p-3">
-                      <span className="text-cyan-400 font-semibold text-sm">{t('cases_result')}:</span>
-                      <p className="text-zinc-300 text-sm mt-1">{study.result[lang]}</p>
-                    </div>
-                    <div className="flex items-center justify-between pt-2">
-                      <span className="text-zinc-500 text-sm">{lang === 'ro' ? 'Economii anuale:' : 'Annual savings:'}</span>
-                      <span className="text-2xl font-bold text-cyan-400">{study.savings}</span>
-                    </div>
-                  </CardContent>
-                </Card>
               </AnimatedSection>
             ))}
           </div>
@@ -1666,126 +1381,6 @@ function App() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                {t('pricing_title')}
-              </h2>
-              <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-                {t('pricing_subtitle')}
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {pricingPlans[lang].map((plan, idx) => (
-              <AnimatedSection key={idx}>
-                <motion.div
-                  whileHover={{ y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Card className={`relative h-full bg-zinc-900 border-zinc-800 ${plan.popular ? 'border-cyan-500 border-2 shadow-xl shadow-cyan-500/10' : ''}`}>
-                    {plan.popular && (
-                      <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                        <Badge className="bg-cyan-500 text-black font-semibold px-4 py-1">
-                          {t('pricing_popular')}
-                        </Badge>
-                      </div>
-                    )}
-                    <CardHeader className="text-center pt-8">
-                      <CardTitle className="text-2xl text-white">{plan.name}</CardTitle>
-                      <CardDescription className="mt-2 text-zinc-400">{plan.description}</CardDescription>
-                      <div className="mt-4">
-                        <span className="text-4xl font-bold text-white">{plan.price}</span>
-                        {plan.period && <span className="text-zinc-500 ml-1">{plan.period}</span>}
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="space-y-3">
-                        {plan.features.map((feature, fidx) => (
-                          <li key={fidx} className="flex items-center gap-2 text-zinc-400">
-                            <Check className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                            <span className="text-sm">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <Button 
-                        className={`w-full mt-6 ${plan.popular ? 'bg-cyan-500 hover:bg-cyan-400 text-black font-semibold' : 'bg-zinc-800 hover:bg-zinc-700 text-white'}`}
-                        onClick={() => scrollToSection('contact')}
-                      >
-                        {plan.cta}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 bg-zinc-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                {t('testimonials_title')}
-              </h2>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials[lang].map((testimonial, idx) => (
-              <AnimatedSection key={idx}>
-                <Card className="h-full bg-zinc-900 border-zinc-800">
-                  <CardContent className="pt-6">
-                    <Quote className="w-8 h-8 text-cyan-500/30 mb-4" />
-                    <p className="text-zinc-400 mb-6">{testimonial.content}</p>
-                    <div className="flex items-center gap-1 mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-white">{testimonial.name}</p>
-                      <p className="text-sm text-zinc-500">{testimonial.role}, {testimonial.company}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trusted By Section */}
-      <section className="py-16 bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <div className="text-center mb-10">
-              <p className="text-zinc-500 font-medium">{t('trust_title')}</p>
-            </div>
-          </AnimatedSection>
-          
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-40">
-            {trustedCompanies.map((company, idx) => (
-              <motion.div 
-                key={idx} 
-                className="flex items-center gap-2 text-zinc-500"
-                whileHover={{ opacity: 1, scale: 1.1 }}
-              >
-                {company.icon}
-                <span className="font-semibold">{company.name}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section id="faq" className="py-20 bg-zinc-950">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1831,7 +1426,7 @@ function App() {
             </div>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 gap-12 max-w-4xl mx-auto">
             <AnimatedSection>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
                 <Card className="text-center bg-zinc-900 border-zinc-800">
@@ -1852,8 +1447,8 @@ function App() {
                     <CardTitle className="text-lg text-white">{t('contact_email')}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <a href="mailto:contact@aidigitalsolutions.ro" className="text-sm font-bold text-cyan-400 hover:text-cyan-300">
-                      contact@aidigitalsolutions.ro
+                    <a href="mailto:contact.aidigitals@gmail.com" className="text-sm font-bold text-cyan-400 hover:text-cyan-300">
+                      contact.aidigitals@gmail.com
                     </a>
                   </CardContent>
                 </Card>
@@ -1914,60 +1509,6 @@ function App() {
                 </CardContent>
               </Card>
             </AnimatedSection>
-
-            <AnimatedSection>
-              <Card className="bg-gradient-to-br from-cyan-600 to-blue-700 text-white h-full">
-                <CardHeader>
-                  <CardTitle className="text-2xl">{t('newsletter_title')}</CardTitle>
-                  <CardDescription className="text-white/80">
-                    {t('newsletter_subtitle')}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {newsletterSubmitted ? (
-                    <div className="text-center py-8">
-                      <CheckCircle2 className="w-16 h-16 text-white mx-auto mb-4" />
-                      <p className="text-xl font-semibold">{t('newsletter_success')}</p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleNewsletterSubmit} className="space-y-4">
-                      <div>
-                        <Label htmlFor="newsletter-email" className="text-white/80">
-                          Email
-                        </Label>
-                        <Input 
-                          id="newsletter-email" 
-                          type="email" 
-                          placeholder={t('newsletter_placeholder')}
-                          required
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                        />
-                      </div>
-                      <Button type="submit" variant="secondary" className="w-full">
-                        {t('newsletter_button')}
-                      </Button>
-                    </form>
-                  )}
-
-                  <div className="mt-8 pt-8 border-t border-white/20">
-                    <div className="flex items-center gap-4 mb-4">
-                      <Shield className="w-8 h-8 text-white/80" />
-                      <div>
-                        <p className="font-semibold">GDPR Compliant</p>
-                        <p className="text-sm text-white/60">Datele tale sunt în siguranță</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <Award className="w-8 h-8 text-white/80" />
-                      <div>
-                        <p className="font-semibold">ISO 27001</p>
-                        <p className="text-sm text-white/60">Certificare securitate</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -1982,11 +1523,17 @@ function App() {
                 <span className="text-lg font-bold">AI Digital Solutions</span>
               </div>
               <p className="text-zinc-400 mb-4">{t('footer_tagline')}</p>
+              <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-4 mb-4">
+                <p className="text-cyan-400 font-medium mb-1">{t('footer_powered')}</p>
+                <a href="https://www.openbill.ro" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-cyan-400 text-sm">
+                  {t('footer_openbill')}
+                </a>
+              </div>
               <div className="flex items-center gap-4">
                 <a href="tel:+40771123522" className="text-zinc-400 hover:text-cyan-400 transition-colors">
                   <Phone className="w-5 h-5" />
                 </a>
-                <a href="mailto:contact@aidigitalsolutions.ro" className="text-zinc-400 hover:text-cyan-400 transition-colors">
+                <a href="mailto:contact.aidigitals@gmail.com" className="text-zinc-400 hover:text-cyan-400 transition-colors">
                   <Mail className="w-5 h-5" />
                 </a>
               </div>
