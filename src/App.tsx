@@ -1027,16 +1027,27 @@ REGULI DE RĂSPUNS:
 - Nu inventa informații care nu sunt în contextul de mai sus
 - Dacă nu știi ceva exact, sugerează contactarea pe WhatsApp`;
 
-  const callKimiAPI = async (userMessage: string): Promise<string> => {
+  const callKimiAPI = async (conversationHistory: {text: string, isUser: boolean}[]): Promise<string> => {
     const apiKey = import.meta.env.VITE_KIMI_API_KEY;
     
     // Dacă nu avem API key, folosim fallback rule-based
     if (!apiKey) {
       await new Promise(resolve => setTimeout(resolve, 800))
-      return getBotResponse(userMessage)
+      const lastUserMessage = conversationHistory.filter(m => m.isUser).pop()
+      return getBotResponse(lastUserMessage?.text || '')
     }
     
     try {
+      // Construim array-ul de mesaje pentru API - includem istoricul conversației
+      const apiMessages = [
+        { role: 'system', content: SYSTEM_PROMPT },
+        // Luăm ultimele 10 mesaje din conversație pentru context (limităm să nu depășim token limit)
+        ...conversationHistory.slice(-10).map(msg => ({
+          role: msg.isUser ? 'user' : 'assistant',
+          content: msg.text
+        }))
+      ]
+      
       const response = await fetch('https://api.moonshot.cn/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -1045,10 +1056,7 @@ REGULI DE RĂSPUNS:
         },
         body: JSON.stringify({
           model: 'moonshot-v1-8k',
-          messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
-            { role: 'user', content: userMessage }
-          ],
+          messages: apiMessages,
           temperature: 0.7,
           max_tokens: 800
         })
@@ -1063,7 +1071,8 @@ REGULI DE RĂSPUNS:
     } catch (error) {
       console.error('Kimi API error:', error)
       // Fallback la rule-based în caz de eroare
-      return getBotResponse(userMessage)
+      const lastUserMessage = conversationHistory.filter(m => m.isUser).pop()
+      return getBotResponse(lastUserMessage?.text || '')
     }
   }
 
@@ -1071,21 +1080,21 @@ REGULI DE RĂSPUNS:
     if (!input.trim() || isLoading) return
     
     const userMessage = input
-    setMessages(prev => [...prev, { text: userMessage, isUser: true }])
+    
+    // Adăugăm mesajul utilizatorului în conversație
+    const updatedMessages = [...messages, { text: userMessage, isUser: true }]
+    setMessages(updatedMessages)
     setInput('')
     setIsLoading(true)
     
     // Add loading indicator
-    setMessages(prev => [...prev, { text: '...', isUser: false, loading: true }])
+    setMessages([...updatedMessages, { text: '...', isUser: false, loading: true }])
     
-    // Call Kimi API
-    const aiResponse = await callKimiAPI(userMessage)
+    // Call Kimi API cu istoricul conversației
+    const aiResponse = await callKimiAPI(updatedMessages)
     
     // Remove loading and add real response
-    setMessages(prev => {
-      const filtered = prev.filter(m => !m.loading)
-      return [...filtered, { text: aiResponse, isUser: false }]
-    })
+    setMessages([...updatedMessages, { text: aiResponse, isUser: false }])
     
     setIsLoading(false)
   }
