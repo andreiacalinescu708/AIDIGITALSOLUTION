@@ -852,59 +852,51 @@ function ChatWidget({ lang }: { lang: Language }) {
     scrollToBottom()
   }, [messages])
 
-  const callKimiAPI = async (userMessage: string) => {
-    const systemPrompt = lang === 'ro' 
-      ? `Ești asistentul virtual al AI Digital Solutions, o companie care oferă soluții de automatizare și AI pentru afaceri.
-      
-Informații despre companie:
-- Oferim servicii de automatizare: chatbot Telegram, procesare facturi OCR, CRM automatizat, email marketing, management proiecte, HR automation, gestiune stocuri, raportări financiare, chatbot website, programări, ticketing, social media, documente, onboarding clienți, notificări
-- Prețuri: începând de la 100 EUR pentru website-uri, 200 EUR pentru automatizări
-- Contact: contact.aidigitals@gmail.com, WhatsApp +40 771 123 522
-- Site: www.openbill.ro este platforma noastră de facturare
-- Companie: AI Digital Solutions
-
-Răspunde politicos, profesional și concis. Dacă nu știi ceva, sugerează să contacteze echipa la contact.aidigitals@gmail.com sau WhatsApp.`
-      : `You are the virtual assistant of AI Digital Solutions, a company offering automation and AI solutions for businesses.
-      
-Company information:
-- We offer automation services: Telegram chatbots, OCR invoice processing, automated CRM, email marketing, project management, HR automation, inventory management, financial reporting, website chatbots, appointments, ticketing, social media, documents, customer onboarding, notifications
-- Pricing: starting from 100 EUR for websites, 200 EUR for automations
-- Contact: contact.aidigitals@gmail.com, WhatsApp +40 771 123 522
-- Website: www.openbill.ro is our invoicing platform
-- Company: AI Digital Solutions
-
-Answer politely, professionally and concisely. If you don't know something, suggest contacting the team at contact.aidigitals@gmail.com or WhatsApp.`
-
-    try {
-      const response = await fetch('https://api.moonshot.cn/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${KIMI_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: 'moonshot-v1-8k',
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: userMessage }
-          ],
-          temperature: 0.7,
-          max_tokens: 500
-        })
-      })
-
-      if (!response.ok) {
-        throw new Error('API request failed')
+  // Chatbot rule-based pentru moment (fără API extern)
+  const getBotResponse = (userMessage: string) => {
+    const msg = userMessage.toLowerCase()
+    
+    if (lang === 'ro') {
+      if (msg.includes('preț') || msg.includes('cost') || msg.includes('cat costa')) {
+        return 'Prețurile noastre încep de la 100 EUR pentru website-uri și 200 EUR pentru automatizări. Pentru o ofertă personalizată, te rugăm să ne contactezi pe WhatsApp la +40 771 123 522 sau email la contact.aidigitals@gmail.com'
       }
-
-      const data = await response.json()
-      return data.choices[0].message.content
-    } catch (error) {
-      console.error('Kimi API error:', error)
-      return lang === 'ro' 
-        ? 'Îmi pare rău, am întâmpinat o problemă. Te rog să ne contactezi direct pe WhatsApp la +40 771 123 522 sau email la contact.aidigitals@gmail.com'
-        : 'Sorry, I encountered an issue. Please contact us directly on WhatsApp at +40 771 123 522 or email at contact.aidigitals@gmail.com'
+      if (msg.includes('servicii') || msg.includes('ce faceți')) {
+        return 'Oferim: chatbot Telegram, procesare facturi OCR, CRM automatizat, email marketing, management proiecte, HR automation, gestiune stocuri, raportări financiare, chatbot website, programări, ticketing, social media, documente și notificări automate.'
+      }
+      if (msg.includes('contact') || msg.includes('email') || msg.includes('telefon')) {
+        return 'Ne poți contacta pe WhatsApp la +40 771 123 522 sau pe email la contact.aidigitals@gmail.com. Programul nostru este Luni-Vineri: 09:00 - 18:00.'
+      }
+      if (msg.includes('openbill') || msg.includes('facturare')) {
+        return 'www.openbill.ro este platforma noastră de facturare dezvoltată de AI Digital Solutions. Oferă facturare electronică, gestiune clienți și rapoarte.'
+      }
+      if (msg.includes('salut') || msg.includes('buna') || msg.includes('hei')) {
+        return 'Bună! Cu ce te pot ajuta astăzi? Îți pot oferi informații despre serviciile noastre, prețuri sau te pot direcționa către echipa noastră.'
+      }
+      return 'Înțeleg. Pentru mai multe detalii despre soluțiile noastre de automatizare, te rugăm să ne contactezi pe WhatsApp la +40 771 123 522 sau să completezi formularul de contact de pe site.'
+    } else {
+      if (msg.includes('price') || msg.includes('cost') || msg.includes('how much')) {
+        return 'Our prices start from 100 EUR for websites and 200 EUR for automations. For a custom quote, please contact us on WhatsApp at +40 771 123 522 or email at contact.aidigitals@gmail.com'
+      }
+      if (msg.includes('services') || msg.includes('what do you do')) {
+        return 'We offer: Telegram chatbots, OCR invoice processing, automated CRM, email marketing, project management, HR automation, inventory management, financial reporting, website chatbots, appointments, ticketing, social media, documents and automated notifications.'
+      }
+      if (msg.includes('contact') || msg.includes('email') || msg.includes('phone')) {
+        return 'You can contact us on WhatsApp at +40 771 123 522 or email at contact.aidigitals@gmail.com. Our working hours are Monday-Friday: 09:00 - 18:00.'
+      }
+      if (msg.includes('openbill') || msg.includes('invoicing')) {
+        return 'www.openbill.ro is our invoicing platform developed by AI Digital Solutions. It offers electronic invoicing, client management and reports.'
+      }
+      if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+        return 'Hello! How can I help you today? I can provide information about our services, prices, or direct you to our team.'
+      }
+      return 'I understand. For more details about our automation solutions, please contact us on WhatsApp at +40 771 123 522 or fill out the contact form on our website.'
     }
+  }
+
+  const callKimiAPI = async (userMessage: string) => {
+    // Folosim sistemul rule-based în loc de API
+    await new Promise(resolve => setTimeout(resolve, 1000)) // Simulăm delay
+    return getBotResponse(userMessage)
   }
 
   const handleSend = async () => {
@@ -952,7 +944,7 @@ Answer politely, professionally and concisely. If you don't know something, sugg
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed bottom-36 right-6 z-50 w-80 sm:w-96 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
+            className="fixed bottom-44 right-6 z-50 w-80 sm:w-96 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
             style={{ bottom: '100px' }}
           >
             <div className="bg-gradient-to-r from-cyan-600 to-blue-700 text-white p-4 flex items-center justify-between">
@@ -1840,7 +1832,7 @@ function App() {
         href="https://wa.me/40771123522"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-24 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:bg-green-400 transition-colors"
+        className="fixed bottom-28 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:bg-green-400 transition-colors"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: 20 }}
