@@ -849,43 +849,96 @@ function ChatWidget({ lang }: { lang: Language }) {
     scrollToBottom()
   }, [messages])
 
-  // Chatbot rule-based pentru moment (fără API extern)
+  // Chatbot rule-based îmbunătățit
   const getBotResponse = (userMessage: string) => {
     const msg = userMessage.toLowerCase()
     
     if (lang === 'ro') {
-      if (msg.includes('preț') || msg.includes('cost') || msg.includes('cat costa')) {
-        return 'Prețurile noastre încep de la 100 EUR pentru website-uri și 200 EUR pentru automatizări. Pentru o ofertă personalizată, te rugăm să ne contactezi pe WhatsApp la +40 771 123 522 sau email la contact.aidigitals@gmail.com'
+      // Bot Telegram specific
+      if (msg.includes('bot telegram') || msg.includes('telegram') || msg.includes('chatbot telegram')) {
+        return '🤖 **Chatbot Telegram** - de la 200 EUR\n\nCe face:\n• Răspunde automat la întrebări clienți 24/7\n• Preia comenzi și programări\n• Trimite notificări și reminder-e\n• Se integrează cu CRM-ul tău\n• Transferă conversațiile complexe către tine\n\n💡 **Exemplu**: Un client întreabă "Cât costă produsul X?" → Botul răspunde instant cu prețul și stocul.'
       }
-      if (msg.includes('servicii') || msg.includes('ce faceți')) {
-        return 'Oferim: chatbot Telegram, procesare facturi OCR, CRM automatizat, email marketing, management proiecte, HR automation, gestiune stocuri, raportări financiare, chatbot website, programări, ticketing, social media, documente și notificări automate.'
+      
+      // Prețuri specifice pe serviciu
+      if (msg.includes('preț') || msg.includes('cost') || msg.includes('cât costă') || msg.includes('cat costa')) {
+        if (msg.includes('website') || msg.includes('site')) {
+          return '💻 **Website-uri și Aplicații Android** - de la 100 EUR\n\nInclude:\n• Design modern și responsive\n• Optimizare SEO\n• Panou de administrare\n• Suport tehnic\n\nPentru magazine online sau aplicații complexe, prețul variază în funcție de funcționalități.'
+        }
+        if (msg.includes('factur') || msg.includes('ocr')) {
+          return '📄 **Automatizare Facturi OCR** - de la 200 EUR\n\nCe face:\n• Citește automat facturile scanate\n• Extrage datele (furnizor, sumă, dată)\n• Introduce automat în contabilitate\n• Elimină introducerea manuală\n\n💰 **Economisesti**: 15+ ore pe săptămână'
+        }
+        if (msg.includes('crm')) {
+          return '👥 **CRM Automatizat** - de la 200 EUR\n\nFuncționalități:\n• Captare lead-uri automată\n• Scorare și prioritizare clienți\n• Follow-up automat pe email\n• Rapoarte de vânzări în timp real\n\n📈 Creștere medie: 40% în conversii'
+        }
+        return '💰 **Prețuri orientative:**\n• Website-uri: de la 100 EUR\n• Chatbot Telegram: de la 200 EUR\n• Automatizare Facturi OCR: de la 200 EUR\n• CRM Automatizat: de la 200 EUR\n• Aplicații Android: de la 100 EUR\n\nPentru o ofertă exactă, contactează-ne pe WhatsApp: +40 771 123 522'
       }
-      if (msg.includes('contact') || msg.includes('email') || msg.includes('telefon')) {
-        return 'Ne poți contacta pe WhatsApp la +40 771 123 522 sau pe email la contact.aidigitals@gmail.com. Programul nostru este Luni-Vineri: 09:00 - 18:00.'
+      
+      // Ce face un anumit serviciu
+      if (msg.includes('ce face') || msg.includes('cum funcționează') || msg.includes('despre')) {
+        if (msg.includes('factur') || msg.includes('ocr')) {
+          return '📄 **Automatizare Facturi OCR**\n\n**Cum funcționează:**\n1. Fotografiezi sau încarci factura în sistem\n2. OCR-ul citește automat toate datele\n3. Sistemul extrage: furnizor, sumă, dată, CUI\n4. Datele sunt introduse automat în contabilitate\n5. Primești confirmare și raport\n\n✅ **Beneficii**: Fără erori de introducere, 10x mai rapid, arhivare digitală'
+        }
+        if (msg.includes('crm')) {
+          return '👥 **CRM Automatizat**\n\n**Cum funcționează:**\n1. Lead-urile sunt capturate automat (de pe site, Facebook, etc.)\n2. Sistemul scorază lead-urile după șansele de conversie\n3. Trimite automat email-uri de follow-up\n4. Îți arată pipeline-ul de vânzări în timp real\n5. Alertă când un client hotărât trebuie contactat\n\n📈 **Rezultat**: 40% mai multe conversii, 50% timp economisit'
+        }
+        if (msg.includes('website')) {
+          return '💻 **Website-uri și Aplicații Android**\n\n**Ce includ:**\n• Design modern, adaptabil pe mobil/tabletă\n• Încărcare rapidă (optimizat SEO)\n• Panou admin ușor de folosit\n• Formulare de contact și chat\n• Integrare cu rețele sociale\n• Certificat SSL inclus\n\n⏱️ **Timp de realizare**: 1-2 săptămâni'
+        }
+        if (msg.includes('hr') || msg.includes('recrutare')) {
+          return '👔 **Automatizare HR**\n\n**Proces automat:**\n1. Primești CV-uri în sistem\n2. AI-ul scanează și extrage experiența, skill-urile\n3. Compară cu cerințele jobului\n4. Îți arată top 10 candidați potriviți\n5. Programează automat interviuri\n\n⏱️ **Economisesti**: 80% din timpul de recrutare'
+        }
       }
+      
+      // Toate serviciile
+      if (msg.includes('servicii') || msg.includes('ce oferiți') || msg.includes('lista')) {
+        return '🚀 **Serviciile AI Digital Solutions:**\n\n🤖 **Chatbot-uri**\n• Telegram (de la 200 EUR)\n• Website (de la 200 EUR)\n\n📊 **Automatizări Business**\n• Procesare Facturi OCR (de la 200 EUR)\n• CRM Automatizat (de la 200 EUR)\n• Email Marketing automat (de la 200 EUR)\n• Gestiune Stocuri (de la 200 EUR)\n• Raportări Financiare (de la 200 EUR)\n\n👔 **HR & Management**\n• Automatizare HR & Recrutare (de la 200 EUR)\n• Management Proiecte (de la 200 EUR)\n• Programări și Calendar (de la 200 EUR)\n\n💻 **Dezvoltare**\n• Website-uri (de la 100 EUR)\n• Aplicații Android (de la 100 EUR)\n\n📱 **Platforma noastră**: www.openbill.ro (facturare online)'
+      }
+      
+      // Contact
+      if (msg.includes('contact') || msg.includes('email') || msg.includes('telefon') || msg.includes('whatsapp')) {
+        return '📞 **Contact AI Digital Solutions**\n\n💬 **WhatsApp**: +40 771 123 522 (cel mai rapid)\n📧 **Email**: contact.aidigitals@gmail.com\n🌐 **Website**: www.aidigitalsolutions.ro\n📍 **Program**: Luni-Vineri, 09:00 - 18:00\n\nPlatforma noastră de facturare: www.openbill.ro\n\n💡 **Recomandare**: Pentru o discuție rapidă, scrie-ne pe WhatsApp!'
+      }
+      
+      // OpenBill
       if (msg.includes('openbill') || msg.includes('facturare')) {
-        return 'www.openbill.ro este platforma noastră de facturare dezvoltată de AI Digital Solutions. Oferă facturare electronică, gestiune clienți și rapoarte.'
+        return '📄 **OpenBill.ro** - Platforma noastră de facturare\n\n**Funcționalități:**\n• Emitere facturi electronic\n• Gestiune clienți și produse\n• Rapoarte financiare automate\n• Trimite facturi pe email/WhatsApp\n• Integrare cu contabilitate\n• Acces de oriunde (cloud)\n\n🌐 www.openbill.ro\n\nDezvoltată 100% de AI Digital Solutions.'
       }
-      if (msg.includes('salut') || msg.includes('buna') || msg.includes('hei')) {
-        return 'Bună! Cu ce te pot ajuta astăzi? Îți pot oferi informații despre serviciile noastre, prețuri sau te pot direcționa către echipa noastră.'
+      
+      // Salut
+      if (msg.includes('salut') || msg.includes('buna') || msg.includes('bună') || msg.includes('hei') || msg.includes('ciao')) {
+        return 'Bună! 👋 Sunt asistentul AI Digital Solutions.\n\nCu ce te pot ajuta?\n• Informații despre **chatbot Telegram** 🤖\n• Prețuri pentru **website-uri** sau **automatizări** 💰\n• Detalii despre **facturare OCR** 📄\n• Contact rapid pe **WhatsApp** 📞\n\nScrie-mi ce te interesează!'
       }
-      return 'Înțeleg. Pentru mai multe detalii despre soluțiile noastre de automatizare, te rugăm să ne contactezi pe WhatsApp la +40 771 123 522 sau să completezi formularul de contact de pe site.'
+      
+      // Timp realizare
+      if (msg.includes('cât durează') || msg.includes('timp') || msg.includes('când e gata')) {
+        return '⏱️ **Timp de implementare:**\n\n• Website simple: 1-2 săptămâni\n• Chatbot Telegram: 1-2 săptămâni\n• Automatizare Facturi OCR: 2-3 săptămâni\n• CRM complet: 2-4 săptămâni\n\nTotul depinde de complexitate și cât de repede ne furnizezi informațiile necesare.'
+      }
+      
+      // Default - încearcă să fie mai util
+      return 'Înțeleg întrebarea. Pentru informații complete, te pot ajuta cu:\n\n• Detalii despre un anumit serviciu\n• Prețuri personalizate\n• Programare o discuție\n\nSau contactează-ne direct:\n💬 WhatsApp: +40 771 123 522\n📧 Email: contact.aidigitals@gmail.com'
+      
     } else {
+      // English responses
+      if (msg.includes('telegram bot') || msg.includes('telegram') || msg.includes('chatbot')) {
+        return '🤖 **Telegram Chatbot** - from 200 EUR\n\nFeatures:\n• Auto-reply to customer questions 24/7\n• Take orders and appointments\n• Send notifications and reminders\n• Integrates with your CRM\n• Escalates complex chats to you\n\n💡 **Example**: A customer asks "How much is product X?" → Bot replies instantly with price and stock.'
+      }
+      
       if (msg.includes('price') || msg.includes('cost') || msg.includes('how much')) {
-        return 'Our prices start from 100 EUR for websites and 200 EUR for automations. For a custom quote, please contact us on WhatsApp at +40 771 123 522 or email at contact.aidigitals@gmail.com'
+        return '💰 **Pricing:**\n• Websites: from 100 EUR\n• Telegram Chatbots: from 200 EUR\n• Invoice OCR Automation: from 200 EUR\n• Automated CRM: from 200 EUR\n• Android Apps: from 100 EUR\n\nFor exact pricing, contact us on WhatsApp: +40 771 123 522'
       }
-      if (msg.includes('services') || msg.includes('what do you do')) {
-        return 'We offer: Telegram chatbots, OCR invoice processing, automated CRM, email marketing, project management, HR automation, inventory management, financial reporting, website chatbots, appointments, ticketing, social media, documents and automated notifications.'
+      
+      if (msg.includes('services') || msg.includes('what do you offer')) {
+        return '🚀 **AI Digital Solutions Services:**\n\n🤖 **Chatbots**\n• Telegram (from 200 EUR)\n• Website (from 200 EUR)\n\n📊 **Business Automation**\n• Invoice OCR Processing (from 200 EUR)\n• Automated CRM (from 200 EUR)\n• Email Marketing (from 200 EUR)\n• Inventory Management (from 200 EUR)\n\n💻 **Development**\n• Websites (from 100 EUR)\n• Android Apps (from 100 EUR)\n\n🌐 **Our platform**: www.openbill.ro (invoicing)'
       }
+      
       if (msg.includes('contact') || msg.includes('email') || msg.includes('phone')) {
-        return 'You can contact us on WhatsApp at +40 771 123 522 or email at contact.aidigitals@gmail.com. Our working hours are Monday-Friday: 09:00 - 18:00.'
+        return '📞 **Contact AI Digital Solutions**\n\n💬 WhatsApp: +40 771 123 522 (fastest)\n📧 Email: contact.aidigitals@gmail.com\n🌐 Website: www.aidigitalsolutions.ro\n📍 Hours: Monday-Friday, 09:00 - 18:00\n\n💡 **Tip**: WhatsApp is the quickest way to reach us!'
       }
-      if (msg.includes('openbill') || msg.includes('invoicing')) {
-        return 'www.openbill.ro is our invoicing platform developed by AI Digital Solutions. It offers electronic invoicing, client management and reports.'
-      }
+      
       if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
-        return 'Hello! How can I help you today? I can provide information about our services, prices, or direct you to our team.'
+        return 'Hello! 👋 I am the AI Digital Solutions assistant.\n\nHow can I help you?\n• Info about **Telegram chatbots** 🤖\n• Pricing for **websites** or **automation** 💰\n• Details about **OCR invoice processing** 📄\n• Quick contact on **WhatsApp** 📞\n\nJust tell me what you need!'
       }
+      
       return 'I understand. For more details about our automation solutions, please contact us on WhatsApp at +40 771 123 522 or fill out the contact form on our website.'
     }
   }
