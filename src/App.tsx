@@ -980,10 +980,91 @@ function ChatWidget({ lang }: { lang: Language }) {
     }
   }
 
-  const callKimiAPI = async (userMessage: string) => {
-    // Folosim sistemul rule-based în loc de API
-    await new Promise(resolve => setTimeout(resolve, 1000)) // Simulăm delay
-    return getBotResponse(userMessage)
+  const SYSTEM_PROMPT = `Ești asistentul AI Digital Solutions - o companie românească de automatizări și software.
+
+DESPRE NOI:
+- Oferim soluții de automatizare pentru business-uri mici și mijlocii
+- Sediul: România
+- Contact: WhatsApp +40 771 123 522, Email: contact.aidigitals@gmail.com
+- Website: www.aidigitalsolutions.ro
+- Platforma noastră: www.openbill.ro (facturare online)
+
+SERVICII ȘI PREȚURI:
+1. Website-uri și Aplicații Android - de la 100 EUR
+   - Design modern, responsive, SEO, panou admin
+   
+2. Chatbot Telegram - de la 200 EUR
+   - Răspuns automat 24/7, preluare comenzi, notificări
+   
+3. Automatizare Facturi OCR - de la 200 EUR
+   - Citire automată facturi, extragere date, fără introducere manuală
+   - Economisire: 15+ ore/săptămână
+   
+4. CRM Automatizat - de la 200 EUR
+   - Captare lead-uri, follow-up automat, rapoarte în timp real
+   - Creștere conversii: 40%
+   
+5. Email Marketing - de la 200 EUR + 20-50 EUR/lună platformă
+   - Automatizări, șabloane personalizate, segmentare
+   
+6. Gestiune Stocuri - de la 200 EUR
+   - Monitorizare real-time, alerte stoc minim, comenzi automate
+   
+7. HR & Recrutare - de la 200 EUR
+   - Scanare CV-uri, matching candidați, programare interviuri
+   
+8. Social Media Automation - de la 200 EUR
+   - Postare programată, răspuns automat comentarii
+
+TIMP IMPLEMENTARE: 1-4 săptămâni (depinde de complexitate)
+
+REGULI DE RĂSPUNS:
+- Răspunde în română dacă utilizatorul scrie în română
+- Răspunde în engleză dacă utilizatorul scrie în engleză
+- Fii prietenos, profesional și concis
+- Oferă informații concrete despre prețuri și funcționalități
+- Îndeamnă la contact pe WhatsApp pentru oferte personalizate
+- Nu inventa informații care nu sunt în contextul de mai sus
+- Dacă nu știi ceva exact, sugerează contactarea pe WhatsApp`;
+
+  const callKimiAPI = async (userMessage: string): Promise<string> => {
+    const apiKey = import.meta.env.VITE_KIMI_API_KEY;
+    
+    // Dacă nu avem API key, folosim fallback rule-based
+    if (!apiKey) {
+      await new Promise(resolve => setTimeout(resolve, 800))
+      return getBotResponse(userMessage)
+    }
+    
+    try {
+      const response = await fetch('https://api.moonshot.cn/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'moonshot-v1-8k',
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'user', content: userMessage }
+          ],
+          temperature: 0.7,
+          max_tokens: 800
+        })
+      })
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      return data.choices[0].message.content
+    } catch (error) {
+      console.error('Kimi API error:', error)
+      // Fallback la rule-based în caz de eroare
+      return getBotResponse(userMessage)
+    }
   }
 
   const handleSend = async () => {
