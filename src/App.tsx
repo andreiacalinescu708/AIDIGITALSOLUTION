@@ -1031,6 +1031,10 @@ REGULI DE RĂSPUNS:
     const apiKey = import.meta.env.VITE_KIMI_API_KEY;
     
     console.log('[Chatbot] API Key present:', !!apiKey, 'Length:', apiKey?.length || 0);
+    if (apiKey) {
+      console.log('[Chatbot] API Key starts with:', apiKey.substring(0, 10) + '...');
+      console.log('[Chatbot] API Key ends with:', '...' + apiKey.substring(apiKey.length - 10));
+    }
     
     // Dacă nu avem API key, folosim fallback rule-based
     if (!apiKey) {
