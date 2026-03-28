@@ -77,7 +77,7 @@ const translations: Translations = {
     ro: 'Soluții AI personalizate pentru firme, contabili și profesioniști. Economisește timp, redu costurile și crește productivitatea.', 
     en: 'Custom AI solutions for businesses, accountants and professionals. Save time, reduce costs and increase productivity.' 
   },
-  hero_cta: { ro: 'Calculează Economiile', en: 'Calculate Savings' },
+  hero_cta: { ro: 'Cât economisești?', en: 'How much do you save?' },
   hero_cta2: { ro: 'Vezi Soluțiile', en: 'See Solutions' },
   hero_badge: { ro: 'Soluții AI pentru afaceri moderne', en: 'AI Solutions for Modern Business' },
   hero_stats_1: { ro: 'Ore economisite lunar', en: 'Hours saved monthly' },
@@ -1284,7 +1284,7 @@ function App() {
             >
               <Button 
                 size="lg" 
-                onClick={() => scrollToSection('calculator')}
+                onClick={() => scrollToSection('visual-calculator')}
                 className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-8 py-6 text-lg rounded-xl shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/40"
               >
                 <Calculator className="w-5 h-5 mr-2" />
@@ -1293,10 +1293,10 @@ function App() {
               <Button 
                 size="lg" 
                 variant="outline"
-                onClick={() => scrollToSection('services')}
+                onClick={() => scrollToSection('examples')}
                 className="border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-300 px-8 py-6 text-lg rounded-xl font-semibold"
               >
-                {t('hero_cta2')}
+                {lang === 'ro' ? 'Vezi exemple' : 'See examples'}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </motion.div>
@@ -1305,12 +1305,12 @@ function App() {
       </section>
 
       {/* Real Life Examples - Storytelling Section */}
-      <section className="py-20 bg-[#0a0a0a]">
+      <section id="examples" className="py-20 bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                {lang === 'ro' ? 'Cum Arată o Zi cu Automatizări' : 'What a Day Looks Like With Automation'}
+                {lang === 'ro' ? 'Cum arată o zi cu automatizări' : 'What a day looks like with automation'}
               </h2>
               <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
                 {lang === 'ro' ? 'Povești reale ale clienților noștri - înainte și după implementare' : 'Real stories from our clients - before and after implementation'}
@@ -1422,7 +1422,7 @@ function App() {
       </section>
 
       {/* Visual Savings Calculator Section */}
-      <section className="py-20 bg-zinc-950">
+      <section id="visual-calculator" className="py-20 bg-zinc-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-12">
