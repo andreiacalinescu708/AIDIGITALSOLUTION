@@ -938,6 +938,9 @@ Answer politely, professionally and concisely. If you don't know something, sugg
         className="fixed bottom-6 right-6 z-50 bg-cyan-500 text-black p-4 rounded-full shadow-lg shadow-cyan-500/30 hover:bg-cyan-400 transition-colors"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
       >
         <MessageCircle className="w-6 h-6" />
       </motion.button>
@@ -949,7 +952,8 @@ Answer politely, professionally and concisely. If you don't know something, sugg
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
+            className="fixed bottom-36 right-6 z-50 w-80 sm:w-96 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
+            style={{ bottom: '100px' }}
           >
             <div className="bg-gradient-to-r from-cyan-600 to-blue-700 text-white p-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -1836,7 +1840,7 @@ function App() {
         href="https://wa.me/40771123522"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:bg-green-400 transition-colors"
+        className="fixed bottom-24 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:bg-green-400 transition-colors"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: 20 }}
