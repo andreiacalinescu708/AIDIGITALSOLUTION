@@ -1300,85 +1300,6 @@ function App() {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </motion.div>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="grid grid-cols-3 gap-8 max-w-2xl mx-auto"
-            >
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-cyan-400">500+</div>
-                <div className="text-sm text-zinc-500 mt-1">{t('hero_stats_1')}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-cyan-400">40%</div>
-                <div className="text-sm text-zinc-500 mt-1">{t('hero_stats_2')}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-cyan-400">50+</div>
-                <div className="text-sm text-zinc-500 mt-1">{t('hero_stats_3')}</div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ROI Calculator Section */}
-      <section id="calculator" className="py-20 bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                {t('calc_title')}
-              </h2>
-              <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-                {t('calc_subtitle')}
-              </p>
-            </div>
-          </AnimatedSection>
-          
-          <AnimatedSection>
-            <ROICalculator lang={lang} />
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section id="how" className="py-20 bg-zinc-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                {t('how_title')}
-              </h2>
-              <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-                {t('how_subtitle')}
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { icon: <Search className="w-8 h-8" />, title: t('how_step1_title'), desc: t('how_step1_desc') },
-              { icon: <Code className="w-8 h-8" />, title: t('how_step2_title'), desc: t('how_step2_desc') },
-              { icon: <Rocket className="w-8 h-8" />, title: t('how_step3_title'), desc: t('how_step3_desc') },
-              { icon: <TrendingUp className="w-8 h-8" />, title: t('how_step4_title'), desc: t('how_step4_desc') },
-            ].map((step, idx) => (
-              <AnimatedSection key={idx}>
-                <motion.div 
-                  className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center h-full"
-                  whileHover={{ y: -5, borderColor: 'rgba(34, 211, 238, 0.3)' }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="w-16 h-16 bg-zinc-800 rounded-2xl flex items-center justify-center text-cyan-400 mx-auto mb-4">
-                    {step.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
-                  <p className="text-zinc-400">{step.desc}</p>
-                </motion.div>
-              </AnimatedSection>
-            ))}
           </div>
         </div>
       </section>
@@ -1517,6 +1438,45 @@ function App() {
           <AnimatedSection>
             <VisualSavingsCalculator lang={lang} />
           </AnimatedSection>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how" className="py-20 bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                {t('how_title')}
+              </h2>
+              <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+                {t('how_subtitle')}
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: <Search className="w-8 h-8" />, title: t('how_step1_title'), desc: t('how_step1_desc') },
+              { icon: <Code className="w-8 h-8" />, title: t('how_step2_title'), desc: t('how_step2_desc') },
+              { icon: <Rocket className="w-8 h-8" />, title: t('how_step3_title'), desc: t('how_step3_desc') },
+              { icon: <TrendingUp className="w-8 h-8" />, title: t('how_step4_title'), desc: t('how_step4_desc') },
+            ].map((step, idx) => (
+              <AnimatedSection key={idx}>
+                <motion.div 
+                  className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center h-full"
+                  whileHover={{ y: -5, borderColor: 'rgba(34, 211, 238, 0.3)' }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="w-16 h-16 bg-zinc-800 rounded-2xl flex items-center justify-center text-cyan-400 mx-auto mb-4">
+                    {step.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
+                  <p className="text-zinc-400">{step.desc}</p>
+                </motion.div>
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
       </section>
 
