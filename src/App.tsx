@@ -870,23 +870,60 @@ function ChatWidget({ lang }: { lang: Language }) {
         if (msg.includes('crm')) {
           return '👥 **CRM Automatizat** - de la 200 EUR\n\nFuncționalități:\n• Captare lead-uri automată\n• Scorare și prioritizare clienți\n• Follow-up automat pe email\n• Rapoarte de vânzări în timp real\n\n📈 Creștere medie: 40% în conversii'
         }
-        return '💰 **Prețuri orientative:**\n• Website-uri: de la 100 EUR\n• Chatbot Telegram: de la 200 EUR\n• Automatizare Facturi OCR: de la 200 EUR\n• CRM Automatizat: de la 200 EUR\n• Aplicații Android: de la 100 EUR\n\nPentru o ofertă exactă, contactează-ne pe WhatsApp: +40 771 123 522'
+        if (msg.includes('email') || msg.includes('marketing')) {
+          return '📧 **Automatizare Email Marketing** - de la 200 EUR\n\nCe include:\n• Setup platformă email (Mailchimp/SendGrid)\n• șabloane email personalizate\n• Automatizări (bun venit, coș abandonat, follow-up)\n• Segmentare liste\n• Raportare și optimizare\n\n💰 Abonament lunar platformă: ~20-50 EUR (depinde de număr contacte)'
+        }
+        if (msg.includes('chatbot') || msg.includes('telegram') || msg.includes('bot')) {
+          return '🤖 **Chatbot Telegram** - de la 200 EUR\n\nCe include:\n• Configurare bot și integrare Telegram\n• Scenarii conversație (până la 20 întrebări/răspunsuri)\n• Integrare cu CRM sau bază de date\n• Notificări pe email când intervine operatorul\n• Training inițial\n\n💡 **Extra**: +50 EUR pentru fiecare 10 scenarii adiționale'
+        }
+        return '💰 **Prețuri orientative:**\n• Website-uri: de la 100 EUR\n• Chatbot Telegram: de la 200 EUR\n• Automatizare Facturi OCR: de la 200 EUR\n• CRM Automatizat: de la 200 EUR\n• Email Marketing: de la 200 EUR\n• Gestiune Stocuri: de la 200 EUR\n• Aplicații Android: de la 100 EUR\n\nPentru o ofertă exactă, contactează-ne pe WhatsApp: +40 771 123 522'
       }
       
       // Ce face un anumit serviciu
-      if (msg.includes('ce face') || msg.includes('cum funcționează') || msg.includes('despre')) {
+      if (msg.includes('ce face') || msg.includes('cum funcționează') || msg.includes('despre') || msg.includes('funcționalități') || msg.includes('cum merge')) {
+        
+        // Email Marketing
+        if (msg.includes('email') || msg.includes('marketing')) {
+          return '📧 **Automatizare Email Marketing** - de la 200 EUR\n\n**Ce face:**\n• Trimite email-uri automat bazate pe acțiunile utilizatorilor\n• Segmentare automată a clienților\n• A/B testing pentru subiecte și conținut\n• Personalizare dinamică (nume, oferte, recomandări)\n• Recuperare coș abandonat automat\n• Raportare detaliată (deschideri, click-uri, conversii)\n\n📈 **Beneficii:**\n• Creștere cu 30-50% a ratei de deschidere\n• Economisire 10+ ore/săptămână\n• Mai mulți clienți fideli\n\n💡 **Exemple:**\n• Client nou → Email de bun venit automat\n• Coș abandonat → Reminder cu reducere după 24h\n• Aniversare → Ofertă specială personalizată'
+        }
+        
+        // Facturi OCR
         if (msg.includes('factur') || msg.includes('ocr')) {
-          return '📄 **Automatizare Facturi OCR**\n\n**Cum funcționează:**\n1. Fotografiezi sau încarci factura în sistem\n2. OCR-ul citește automat toate datele\n3. Sistemul extrage: furnizor, sumă, dată, CUI\n4. Datele sunt introduse automat în contabilitate\n5. Primești confirmare și raport\n\n✅ **Beneficii**: Fără erori de introducere, 10x mai rapid, arhivare digitală'
+          return '📄 **Automatizare Facturi OCR** - de la 200 EUR\n\n**Cum funcționează:**\n1. Fotografiezi sau încarci factura în sistem\n2. OCR-ul citește automat toate datele\n3. Sistemul extrage: furnizor, sumă, dată, CUI\n4. Datele sunt introduse automat în contabilitate\n5. Primești confirmare și raport\n\n✅ **Beneficii**: Fără erori de introducere, 10x mai rapid, arhivare digitală'
         }
+        
+        // CRM
         if (msg.includes('crm')) {
-          return '👥 **CRM Automatizat**\n\n**Cum funcționează:**\n1. Lead-urile sunt capturate automat (de pe site, Facebook, etc.)\n2. Sistemul scorază lead-urile după șansele de conversie\n3. Trimite automat email-uri de follow-up\n4. Îți arată pipeline-ul de vânzări în timp real\n5. Alertă când un client hotărât trebuie contactat\n\n📈 **Rezultat**: 40% mai multe conversii, 50% timp economisit'
+          return '👥 **CRM Automatizat** - de la 200 EUR\n\n**Cum funcționează:**\n1. Lead-urile sunt capturate automat (de pe site, Facebook, etc.)\n2. Sistemul scorază lead-urile după șansele de conversie\n3. Trimite automat email-uri de follow-up\n4. Îți arată pipeline-ul de vânzări în timp real\n5. Alertă când un client hotărât trebuie contactat\n\n📈 **Rezultat**: 40% mai multe conversii, 50% timp economisit'
         }
-        if (msg.includes('website')) {
-          return '💻 **Website-uri și Aplicații Android**\n\n**Ce includ:**\n• Design modern, adaptabil pe mobil/tabletă\n• Încărcare rapidă (optimizat SEO)\n• Panou admin ușor de folosit\n• Formulare de contact și chat\n• Integrare cu rețele sociale\n• Certificat SSL inclus\n\n⏱️ **Timp de realizare**: 1-2 săptămâni'
+        
+        // Website
+        if (msg.includes('website') || msg.includes('site')) {
+          return '💻 **Website-uri și Aplicații Android** - de la 100 EUR\n\n**Funcționalități disponibile:**\n• Design modern, adaptabil pe mobil/tabletă\n• Optimizare SEO (apari în Google)\n• Panou admin ușor de folosit\n• Formulare de contact și chat live\n• Integrare cu rețele sociale\n• Certificat SSL inclus (siguranță)\n• Găzduire rapidă\n\n**Tipuri de site-uri:**\n• Site de prezentare\n• Magazin online (e-commerce)\n• Landing page\n• Blog\n• Aplicație web complexă\n\n⏱️ **Timp de realizare**: 1-2 săptămâni'
         }
+        
+        // HR
         if (msg.includes('hr') || msg.includes('recrutare')) {
-          return '👔 **Automatizare HR**\n\n**Proces automat:**\n1. Primești CV-uri în sistem\n2. AI-ul scanează și extrage experiența, skill-urile\n3. Compară cu cerințele jobului\n4. Îți arată top 10 candidați potriviți\n5. Programează automat interviuri\n\n⏱️ **Economisesti**: 80% din timpul de recrutare'
+          return '👔 **Automatizare HR** - de la 200 EUR\n\n**Proces automat:**\n1. Primești CV-uri în sistem\n2. AI-ul scanează și extrage experiența, skill-urile\n3. Compară cu cerințele jobului\n4. Îți arată top 10 candidați potriviți\n5. Programează automat interviuri\n\n⏱️ **Economisesti**: 80% din timpul de recrutare'
         }
+        
+        // Gestiune stocuri
+        if (msg.includes('stoc') || msg.includes('inventar') || msg.includes('depozit')) {
+          return '📦 **Gestiune Stocuri Inteligentă** - de la 200 EUR\n\n**Ce face:**\n• Urmărește stocul în timp real\n• Predicție cerere bazată pe istoric\n• Alertă automată când stocul e sub minim\n• Comenzi automate către furnizori\n• Sincronizare între magazine online și fizice\n• Raportare vânzări și tendințe\n\n📈 **Beneficii**: Zero rupturi de stoc, cash flow optimizat'
+        }
+        
+        // Chatbot
+        if (msg.includes('chatbot') || msg.includes('bot')) {
+          return '🤖 **Chatbot Inteligent** - de la 200 EUR\n\n**Funcționalități:**\n• Răspunde automat 24/7 la întrebări frecvente\n• Preia comenzi și programări\n• Colectează lead-uri și date de contact\n• Integrează cu CRM și baze de date\n• Transferă la operator uman când e necesar\n• Învață din conversații (machine learning)\n\n**Platforme:** Telegram, Facebook Messenger, Website\n\n💰 **ROI**: Reducere 70% din timpul de suport client'
+        }
+        
+        // Social Media
+        if (msg.includes('social') || msg.includes('facebook') || msg.includes('instagram')) {
+          return '📱 **Automatizare Social Media** - de la 200 EUR\n\n**Ce automatizează:**\n• Postare programată pe multiple platforme\n• Răspuns automat la comentarii comune\n• Monitorizare mențiuni brand\n• Raportare engagement și reach\n• Sugestii conținut viral\n\n📈 Economisești 5-10 ore/săptămână pe management social media'
+        }
+        
+        // Dacă nu găsește serviciu specific
+        return '🤔 Nu am înțeles exact despre ce serviciu vrei informații.\n\nTe pot ajuta cu detalii despre:\n• **Chatbot** Telegram (răspuns automat 24/7)\n• **Facturi OCR** (citire automată facturi)\n• **CRM Automatizat** (gestiune clienți)\n• **Email Marketing** (email-uri automate)\n• **Website-uri** (de la 100 EUR)\n• **Gestiune Stocuri** (monitorizare inventar)\n• **Social Media** (postare automată)\n\nDespre care dorești să știi mai multe?'
       }
       
       // Toate serviciile
