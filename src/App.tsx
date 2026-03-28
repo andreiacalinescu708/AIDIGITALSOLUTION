@@ -841,9 +841,6 @@ function ChatWidget({ lang }: { lang: Language }) {
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  // API Key Kimi - în producție ar trebui pusă în variabile de mediu
-  const KIMI_API_KEY = import.meta.env.VITE_KIMI_API_KEY || ''
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
