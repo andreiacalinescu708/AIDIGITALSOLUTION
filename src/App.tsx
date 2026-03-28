@@ -830,7 +830,7 @@ function AnimatedSection({ children, className = '' }: { children: React.ReactNo
 // Chat Widget Component
 function ChatWidget({ lang }: { lang: Language }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<{text: string; isUser: boolean}[]>([
+  const [messages, setMessages] = useState<{text: string; isUser: boolean; loading?: boolean}[]>([
     { text: lang === 'ro' 
       ? 'Bună! Sunt asistentul AI Digital Solutions. Cu ce te pot ajuta?' 
       : 'Hello! I am the AI Digital Solutions assistant. How can I help you?', 
@@ -838,7 +838,11 @@ function ChatWidget({ lang }: { lang: Language }) {
     }
   ])
   const [input, setInput] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // API Key Kimi - în producție ar trebui pusă în variabile de mediu
+  const KIMI_API_KEY = import.meta.env.VITE_KIMI_API_KEY || ''
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -848,29 +852,82 @@ function ChatWidget({ lang }: { lang: Language }) {
     scrollToBottom()
   }, [messages])
 
-  const handleSend = () => {
-    if (!input.trim()) return
+  const callKimiAPI = async (userMessage: string) => {
+    const systemPrompt = lang === 'ro' 
+      ? `Ești asistentul virtual al AI Digital Solutions, o companie care oferă soluții de automatizare și AI pentru afaceri.
+      
+Informații despre companie:
+- Oferim servicii de automatizare: chatbot Telegram, procesare facturi OCR, CRM automatizat, email marketing, management proiecte, HR automation, gestiune stocuri, raportări financiare, chatbot website, programări, ticketing, social media, documente, onboarding clienți, notificări
+- Prețuri: începând de la 100 EUR pentru website-uri, 200 EUR pentru automatizări
+- Contact: contact.aidigitals@gmail.com, WhatsApp +40 771 123 522
+- Site: www.openbill.ro este platforma noastră de facturare
+- Companie: AI Digital Solutions
+
+Răspunde politicos, profesional și concis. Dacă nu știi ceva, sugerează să contacteze echipa la contact.aidigitals@gmail.com sau WhatsApp.`
+      : `You are the virtual assistant of AI Digital Solutions, a company offering automation and AI solutions for businesses.
+      
+Company information:
+- We offer automation services: Telegram chatbots, OCR invoice processing, automated CRM, email marketing, project management, HR automation, inventory management, financial reporting, website chatbots, appointments, ticketing, social media, documents, customer onboarding, notifications
+- Pricing: starting from 100 EUR for websites, 200 EUR for automations
+- Contact: contact.aidigitals@gmail.com, WhatsApp +40 771 123 522
+- Website: www.openbill.ro is our invoicing platform
+- Company: AI Digital Solutions
+
+Answer politely, professionally and concisely. If you don't know something, suggest contacting the team at contact.aidigitals@gmail.com or WhatsApp.`
+
+    try {
+      const response = await fetch('https://api.moonshot.cn/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${KIMI_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: 'moonshot-v1-8k',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userMessage }
+          ],
+          temperature: 0.7,
+          max_tokens: 500
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error('API request failed')
+      }
+
+      const data = await response.json()
+      return data.choices[0].message.content
+    } catch (error) {
+      console.error('Kimi API error:', error)
+      return lang === 'ro' 
+        ? 'Îmi pare rău, am întâmpinat o problemă. Te rog să ne contactezi direct pe WhatsApp la +40 771 123 522 sau email la contact.aidigitals@gmail.com'
+        : 'Sorry, I encountered an issue. Please contact us directly on WhatsApp at +40 771 123 522 or email at contact.aidigitals@gmail.com'
+    }
+  }
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return
     
-    setMessages([...messages, { text: input, isUser: true }])
-    
-    // Simulate AI response
-    setTimeout(() => {
-      const responses = lang === 'ro' ? [
-        'Interesant! Pot să te ajut cu mai multe detalii despre soluțiile noastre.',
-        'Îți recomand să arunci o privire la calculatorul nostru de economii.',
-        'Pentru o ofertă personalizată, completează formularul de contact.',
-        'Soluțiile noastre de automatizare pot economisi până la 70% din timp.',
-      ] : [
-        'Interesting! I can help you with more details about our solutions.',
-        'I recommend checking out our savings calculator.',
-        'For a custom quote, fill out the contact form.',
-        'Our automation solutions can save up to 70% of time.',
-      ]
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)]
-      setMessages(prev => [...prev, { text: randomResponse, isUser: false }])
-    }, 1000)
-    
+    const userMessage = input
+    setMessages(prev => [...prev, { text: userMessage, isUser: true }])
     setInput('')
+    setIsLoading(true)
+    
+    // Add loading indicator
+    setMessages(prev => [...prev, { text: '...', isUser: false, loading: true }])
+    
+    // Call Kimi API
+    const aiResponse = await callKimiAPI(userMessage)
+    
+    // Remove loading and add real response
+    setMessages(prev => {
+      const filtered = prev.filter(m => !m.loading)
+      return [...filtered, { text: aiResponse, isUser: false }]
+    })
+    
+    setIsLoading(false)
   }
 
   return (
@@ -914,10 +971,20 @@ function ChatWidget({ lang }: { lang: Language }) {
                     className={`max-w-[80%] p-3 rounded-2xl ${
                       msg.isUser 
                         ? 'bg-cyan-500 text-black rounded-br-md font-medium' 
-                        : 'bg-zinc-800 text-zinc-300 rounded-bl-md'
+                        : msg.loading
+                          ? 'bg-zinc-800 text-zinc-500 rounded-bl-md italic'
+                          : 'bg-zinc-800 text-zinc-300 rounded-bl-md'
                     }`}
                   >
-                    {msg.text}
+                    {msg.loading ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                      </div>
+                    ) : (
+                      msg.text
+                    )}
                   </div>
                 </div>
               ))}
@@ -929,10 +996,19 @@ function ChatWidget({ lang }: { lang: Language }) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                placeholder={lang === 'ro' ? 'Scrie un mesaj...' : 'Type a message...'}
-                className="flex-1 bg-zinc-800 border-zinc-700 text-white"
+                placeholder={isLoading 
+                  ? (lang === 'ro' ? 'Se încarcă...' : 'Loading...') 
+                  : (lang === 'ro' ? 'Scrie un mesaj...' : 'Type a message...')
+                }
+                disabled={isLoading}
+                className="flex-1 bg-zinc-800 border-zinc-700 text-white disabled:opacity-50"
               />
-              <Button onClick={handleSend} size="icon" className="bg-cyan-500 hover:bg-cyan-400 text-black">
+              <Button 
+                onClick={handleSend} 
+                size="icon" 
+                disabled={isLoading}
+                className="bg-cyan-500 hover:bg-cyan-400 text-black disabled:opacity-50"
+              >
                 <Send className="w-4 h-4" />
               </Button>
             </div>
