@@ -1030,8 +1030,11 @@ REGULI DE RĂSPUNS:
   const callKimiAPI = async (conversationHistory: {text: string, isUser: boolean}[]): Promise<string> => {
     const apiKey = import.meta.env.VITE_KIMI_API_KEY;
     
+    console.log('[Chatbot] API Key present:', !!apiKey, 'Length:', apiKey?.length || 0);
+    
     // Dacă nu avem API key, folosim fallback rule-based
     if (!apiKey) {
+      console.log('[Chatbot] No API key, using fallback');
       await new Promise(resolve => setTimeout(resolve, 800))
       const lastUserMessage = conversationHistory.filter(m => m.isUser).pop()
       return getBotResponse(lastUserMessage?.text || '')
@@ -1048,6 +1051,8 @@ REGULI DE RĂSPUNS:
         }))
       ]
       
+      console.log('[Chatbot] Calling Kimi API with', apiMessages.length, 'messages');
+      
       const response = await fetch('https://api.moonshot.cn/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -1062,14 +1067,19 @@ REGULI DE RĂSPUNS:
         })
       })
       
+      console.log('[Chatbot] API response status:', response.status);
+      
       if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
+        const errorText = await response.text();
+        console.error('[Chatbot] API error body:', errorText);
+        throw new Error(`API error: ${response.status} - ${errorText}`)
       }
       
       const data = await response.json()
+      console.log('[Chatbot] API response received successfully');
       return data.choices[0].message.content
     } catch (error) {
-      console.error('Kimi API error:', error)
+      console.error('[Chatbot] Kimi API error:', error)
       // Fallback la rule-based în caz de eroare
       const lastUserMessage = conversationHistory.filter(m => m.isUser).pop()
       return getBotResponse(lastUserMessage?.text || '')
