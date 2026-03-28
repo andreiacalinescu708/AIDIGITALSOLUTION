@@ -682,6 +682,133 @@ const faqData = {
 }
 
 // Pricing Data
+
+// Visual Savings Calculator Component
+function VisualSavingsCalculator({ lang }: { lang: Language }) {
+  const [employees, setEmployees] = useState(5)
+  const [hoursPerDay, setHoursPerDay] = useState(3)
+  const [hourlyRate, setHourlyRate] = useState(15)
+  
+  const monthlyHours = hoursPerDay * 22 * employees
+  const monthlyCost = monthlyHours * hourlyRate
+  const yearlySavings = Math.round(monthlyCost * 12 * 0.7)
+  const hoursSaved = Math.round(monthlyHours * 0.7)
+  
+  return (
+    <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Sliders */}
+        <div className="space-y-8">
+          {/* Employees Slider */}
+          <div>
+            <div className="flex justify-between mb-2">
+              <Label className="text-zinc-300 font-medium">
+                {lang === 'ro' ? 'Număr angajați' : 'Number of employees'}
+              </Label>
+              <span className="text-cyan-400 font-bold text-xl">{employees}</span>
+            </div>
+            <input
+              type="range"
+              min="1"
+              max="50"
+              value={employees}
+              onChange={(e) => setEmployees(Number(e.target.value))}
+              className="w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+            />
+            <div className="flex justify-between text-xs text-zinc-500 mt-1">
+              <span>1</span>
+              <span>50</span>
+            </div>
+          </div>
+          
+          {/* Hours Slider */}
+          <div>
+            <div className="flex justify-between mb-2">
+              <Label className="text-zinc-300 font-medium">
+                {lang === 'ro' ? 'Ore repetitive/zi' : 'Repetitive hours/day'}
+              </Label>
+              <span className="text-cyan-400 font-bold text-xl">{hoursPerDay}h</span>
+            </div>
+            <input
+              type="range"
+              min="1"
+              max="8"
+              value={hoursPerDay}
+              onChange={(e) => setHoursPerDay(Number(e.target.value))}
+              className="w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+            />
+            <div className="flex justify-between text-xs text-zinc-500 mt-1">
+              <span>1h</span>
+              <span>8h</span>
+            </div>
+          </div>
+          
+          {/* Rate Slider */}
+          <div>
+            <div className="flex justify-between mb-2">
+              <Label className="text-zinc-300 font-medium">
+                {lang === 'ro' ? 'Cost oră (EUR)' : 'Hourly rate (EUR)'}
+              </Label>
+              <span className="text-cyan-400 font-bold text-xl">€{hourlyRate}</span>
+            </div>
+            <input
+              type="range"
+              min="5"
+              max="100"
+              value={hourlyRate}
+              onChange={(e) => setHourlyRate(Number(e.target.value))}
+              className="w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+            />
+            <div className="flex justify-between text-xs text-zinc-500 mt-1">
+              <span>€5</span>
+              <span>€100</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Results */}
+        <div className="bg-gradient-to-br from-cyan-900/30 to-blue-900/30 border border-cyan-800/30 rounded-xl p-6">
+          <h3 className="text-xl font-bold text-white mb-6 text-center">
+            {lang === 'ro' ? 'Economii Anuale Estimate' : 'Estimated Annual Savings'}
+          </h3>
+          
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="text-center p-4 bg-zinc-800/50 rounded-lg">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Clock className="w-5 h-5 text-cyan-400" />
+                <span className="text-zinc-400 text-sm">{lang === 'ro' ? 'Ore economisite/an' : 'Hours saved/year'}</span>
+              </div>
+              <p className="text-3xl font-bold text-cyan-400">{hoursSaved.toLocaleString()}</p>
+            </div>
+            
+            <div className="text-center p-4 bg-zinc-800/50 rounded-lg">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Euro className="w-5 h-5 text-green-400" />
+                <span className="text-zinc-400 text-sm">{lang === 'ro' ? 'Economii financiare' : 'Money saved'}</span>
+              </div>
+              <p className="text-3xl font-bold text-green-400">€{yearlySavings.toLocaleString()}</p>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-zinc-400 text-sm mb-4">
+              {lang === 'ro' 
+                ? 'Echivalentul a ☕ ' + Math.round(yearlySavings / 5) + ' cafele sau 🏖️ ' + Math.round(hoursSaved / 160) + ' săptămâni de vacanță'
+                : 'Equivalent to ☕ ' + Math.round(yearlySavings / 5) + ' coffees or 🏖️ ' + Math.round(hoursSaved / 160) + ' weeks of vacation'}
+            </p>
+            <Button 
+              className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              {lang === 'ro' ? 'Solicită Ofertă Personalizată' : 'Request Custom Quote'}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // Animated Section Component
 function AnimatedSection({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const ref = useRef(null)
@@ -1253,6 +1380,220 @@ function App() {
               </AnimatedSection>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Real Life Examples - Storytelling Section */}
+      <section className="py-20 bg-[#0a0a0a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                {lang === 'ro' ? 'Cum Arată o Zi cu Automatizări' : 'What a Day Looks Like With Automation'}
+              </h2>
+              <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+                {lang === 'ro' ? 'Povești reale ale clienților noștri - înainte și după implementare' : 'Real stories from our clients - before and after implementation'}
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Maria - Contabila */}
+            <AnimatedSection>
+              <Card className="bg-zinc-900 border-zinc-800 h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">M</div>
+                    <div>
+                      <CardTitle className="text-white text-lg">Maria</CardTitle>
+                      <p className="text-zinc-500 text-sm">{lang === 'ro' ? 'Contabilă' : 'Accountant'}</p>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="bg-red-900/20 border border-red-800/50 rounded-lg p-4">
+                    <p className="text-red-400 font-semibold text-sm mb-2">{lang === 'ro' ? 'ÎNAINTE:' : 'BEFORE:'}</p>
+                    <p className="text-zinc-400 text-sm">
+                      {lang === 'ro' 
+                        ? 'Petreceam 4 ore zilnic să introduc facturi manual în Excel. Eram stresată și făceam erori.' 
+                        : 'I spent 4 hours daily entering invoices manually in Excel. I was stressed and made errors.'}
+                    </p>
+                  </div>
+                  <div className="bg-cyan-900/20 border border-cyan-800/50 rounded-lg p-4">
+                    <p className="text-cyan-400 font-semibold text-sm mb-2">{lang === 'ro' ? 'DUPĂ:' : 'AFTER:'}</p>
+                    <p className="text-zinc-300 text-sm">
+                      {lang === 'ro' 
+                        ? 'Sistemul citește automat facturile cu OCR. Eu doar verific. Economisesc 3 ore pe zi.' 
+                        : 'The system automatically reads invoices with OCR. I just verify. I save 3 hours daily.'}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+
+            {/* Andrei - Magazin Online */}
+            <AnimatedSection>
+              <Card className="bg-zinc-900 border-zinc-800 h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center text-white font-bold text-lg">A</div>
+                    <div>
+                      <CardTitle className="text-white text-lg">Andrei</CardTitle>
+                      <p className="text-zinc-500 text-sm">{lang === 'ro' ? 'Manager Magazin Online' : 'E-commerce Manager'}</p>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="bg-red-900/20 border border-red-800/50 rounded-lg p-4">
+                    <p className="text-red-400 font-semibold text-sm mb-2">{lang === 'ro' ? 'ÎNAINTE:' : 'BEFORE:'}</p>
+                    <p className="text-zinc-400 text-sm">
+                      {lang === 'ro' 
+                        ? 'Răspundeam personal la 50+ mesaje pe zi pe Facebook/WhatsApp. Eram blocat în telefon.' 
+                        : 'I personally answered 50+ messages daily on Facebook/WhatsApp. I was glued to my phone.'}
+                    </p>
+                  </div>
+                  <div className="bg-cyan-900/20 border border-cyan-800/50 rounded-lg p-4">
+                    <p className="text-cyan-400 font-semibold text-sm mb-2">{lang === 'ro' ? 'DUPĂ:' : 'AFTER:'}</p>
+                    <p className="text-zinc-300 text-sm">
+                      {lang === 'ro' 
+                        ? 'Chatbot-ul răspunde instant la întrebări despre stoc și livrare. Eu mă ocup doar de cazurile complexe.' 
+                        : 'Chatbot answers instantly about stock and delivery. I only handle complex cases.'}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+
+            {/* Elena - HR */}
+            <AnimatedSection>
+              <Card className="bg-zinc-900 border-zinc-800 h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-lg">E</div>
+                    <div>
+                      <CardTitle className="text-white text-lg">Elena</CardTitle>
+                      <p className="text-zinc-500 text-sm">{lang === 'ro' ? 'HR Manager' : 'HR Manager'}</p>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="bg-red-900/20 border border-red-800/50 rounded-lg p-4">
+                    <p className="text-red-400 font-semibold text-sm mb-2">{lang === 'ro' ? 'ÎNAINTE:' : 'BEFORE:'}</p>
+                    <p className="text-zinc-400 text-sm">
+                      {lang === 'ro' 
+                        ? 'Citeam 100 CV-uri manual pentru un post. Dura săptămâni să găsesc candidatul potrivit.' 
+                        : 'I read 100 CVs manually for one position. It took weeks to find the right candidate.'}
+                    </p>
+                  </div>
+                  <div className="bg-cyan-900/20 border border-cyan-800/50 rounded-lg p-4">
+                    <p className="text-cyan-400 font-semibold text-sm mb-2">{lang === 'ro' ? 'DUPĂ:' : 'AFTER:'}</p>
+                    <p className="text-zinc-300 text-sm">
+                      {lang === 'ro' 
+                        ? 'Sistemul scanează CV-urile și îmi arată top 10 candidați potriviți. Economisesc 80% din timp.' 
+                        : 'System scans CVs and shows me top 10 matching candidates. I save 80% of the time.'}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual Savings Calculator Section */}
+      <section className="py-20 bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                {lang === 'ro' ? 'Cât Economisești?' : 'How Much Do You Save?'}
+              </h2>
+              <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+                {lang === 'ro' ? 'Mută cursorul și vezi economiile în timp real' : 'Move the slider and see savings in real time'}
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <VisualSavingsCalculator lang={lang} />
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* You vs System Comparison Section */}
+      <section className="py-20 bg-[#0a0a0a]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                {lang === 'ro' ? 'Tu vs Sistemul Automatizat' : 'You vs The Automated System'}
+              </h2>
+              <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+                {lang === 'ro' ? 'Comparație clară: ce faci manual vs ce face sistemul' : 'Clear comparison: what you do manually vs what the system does'}
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+              {/* Header */}
+              <div className="grid grid-cols-2 bg-zinc-800">
+                <div className="p-4 text-center border-r border-zinc-700">
+                  <p className="text-red-400 font-bold text-lg">{lang === 'ro' ? 'TU faci manual' : 'YOU do manually'}</p>
+                </div>
+                <div className="p-4 text-center">
+                  <p className="text-cyan-400 font-bold text-lg">{lang === 'ro' ? 'SISTEMUL face automat' : 'SYSTEM does automatically'}</p>
+                </div>
+              </div>
+
+              {/* Rows */}
+              {[
+                {
+                  manual: lang === 'ro' ? 'Introduci facturi una câte una în calculator' : 'Enter invoices one by one into computer',
+                  auto: lang === 'ro' ? 'Scanează și extrage date din 100 facturi în 2 minute' : 'Scans and extracts data from 100 invoices in 2 minutes',
+                  icon: <FileText className="w-5 h-5" />
+                },
+                {
+                  manual: lang === 'ro' ? 'Răspunzi la aceleași întrebări de 50x pe zi' : 'Answer the same questions 50x daily',
+                  auto: lang === 'ro' ? 'Răspunde 24/7 cu informații din baza de date' : 'Answers 24/7 with info from database',
+                  icon: <MessageSquare className="w-5 h-5" />
+                },
+                {
+                  manual: lang === 'ro' ? 'Cauți printre sute de CV-uri manual' : 'Search through hundreds of CVs manually',
+                  auto: lang === 'ro' ? 'Selectează automat top 10 candidați potriviți' : 'Automatically selects top 10 matching candidates',
+                  icon: <Users className="w-5 h-5" />
+                },
+                {
+                  manual: lang === 'ro' ? 'Verifici stocul în Excel zilnic' : 'Check stock in Excel daily',
+                  auto: lang === 'ro' ? 'Trimite alerte automate când stocul e critic' : 'Sends automatic alerts when stock is critical',
+                  icon: <Package className="w-5 h-5" />
+                },
+                {
+                  manual: lang === 'ro' ? 'Trimite email-uri de reminder manual' : 'Send reminder emails manually',
+                  auto: lang === 'ro' ? 'Programează și trimite email-uri automat' : 'Schedules and sends emails automatically',
+                  icon: <Mail className="w-5 h-5" />
+                }
+              ].map((row, idx) => (
+                <motion.div 
+                  key={idx}
+                  className="grid grid-cols-2 border-t border-zinc-800 hover:bg-zinc-800/50 transition-colors"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="p-6 border-r border-zinc-700 flex items-center gap-3">
+                    <span className="text-red-400">{row.icon}</span>
+                    <p className="text-zinc-400">{row.manual}</p>
+                  </div>
+                  <div className="p-6 flex items-center gap-3">
+                    <span className="text-cyan-400">{row.icon}</span>
+                    <p className="text-zinc-200 font-medium">{row.auto}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
