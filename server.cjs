@@ -10,12 +10,16 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Inițializăm clientul OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  timeout: 60000,
-  maxRetries: 2
-});
+// Inițializăm clientul OpenAI doar dacă avem cheia
+const apiKey = process.env.OPENAI_API_KEY;
+let openai;
+if (apiKey) {
+  openai = new OpenAI({
+    apiKey: apiKey,
+    timeout: 60000,
+    maxRetries: 2
+  });
+}
 
 // System prompt pentru chatbot
 const SYSTEM_PROMPT = `Ești asistentul AI Digital Solutions - o companie românească de automatizări și software.
@@ -47,6 +51,14 @@ REGULI DE RĂSPUNS:
 // Endpoint pentru chat
 app.post('/api/chat', async (req, res) => {
   try {
+    // Verificăm dacă OpenAI e configurat
+    if (!openai) {
+      return res.status(503).json({ 
+        error: 'API not configured',
+        message: 'OPENAI_API_KEY not set in environment variables'
+      });
+    }
+
     const { messages } = req.body;
     
     if (!messages || !Array.isArray(messages)) {
@@ -101,5 +113,8 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`OpenAI API Key present:`, !!process.env.OPENAI_API_KEY);
+  console.log(`OpenAI API Key present:`, !!apiKey);
+  if (!apiKey) {
+    console.log('⚠️  WARNING: OPENAI_API_KEY not set! Chatbot will not work.');
+  }
 });
