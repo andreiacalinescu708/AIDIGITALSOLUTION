@@ -1947,7 +1947,7 @@ function App() {
         href="https://wa.me/40771123522"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-28 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:bg-green-400 transition-colors"
+        className="fixed bottom-44 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:bg-green-400 transition-colors"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: 20 }}
