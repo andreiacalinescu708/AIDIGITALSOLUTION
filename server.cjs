@@ -10,10 +10,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Inițializăm clientul OpenAI cu Kimi
-const kimi = new OpenAI({
-  apiKey: process.env.KIMI_API_KEY || process.env.VITE_KIMI_API_KEY,
-  baseURL: 'https://api.moonshot.cn/v1',
+// Inițializăm clientul OpenAI
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
   timeout: 60000,
   maxRetries: 2
 });
@@ -56,7 +55,7 @@ app.post('/api/chat', async (req, res) => {
 
     console.log('[Server] Received chat request with', messages.length, 'messages');
 
-    // Construim mesajele pentru Kimi
+    // Construim mesajele pentru OpenAI
     const apiMessages = [
       { role: 'system', content: SYSTEM_PROMPT },
       ...messages.slice(-10).map(msg => ({
@@ -65,11 +64,11 @@ app.post('/api/chat', async (req, res) => {
       }))
     ];
 
-    console.log('[Server] Calling Kimi API with OpenAI SDK...');
+    console.log('[Server] Calling OpenAI API...');
 
-    // Apelăm API-ul Kimi folosind OpenAI SDK
-    const response = await kimi.chat.completions.create({
-      model: 'kimi-k2-5',
+    // Apelăm API-ul OpenAI
+    const response = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
       messages: apiMessages,
       temperature: 0.7,
       max_tokens: 800
@@ -77,19 +76,17 @@ app.post('/api/chat', async (req, res) => {
 
     const reply = response.choices[0].message.content;
     
-    console.log('[Server] Kimi response received');
+    console.log('[Server] OpenAI response received');
     res.json({ reply });
     
   } catch (error) {
     console.error('[Server] Error:', error.message);
     console.error('[Server] Error status:', error.status);
-    console.error('[Server] Error code:', error.code);
     
     res.status(500).json({ 
       error: 'Server error', 
       message: error.message,
-      status: error.status,
-      code: error.code
+      status: error.status
     });
   }
 });
@@ -104,5 +101,5 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`Kimi API Key present:`, !!process.env.KIMI_API_KEY);
+  console.log(`OpenAI API Key present:`, !!process.env.OPENAI_API_KEY);
 });
