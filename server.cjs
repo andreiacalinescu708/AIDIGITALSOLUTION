@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const OpenAI = require('openai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,6 +9,14 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Inițializăm clientul OpenAI cu Kimi
+const kimi = new OpenAI({
+  apiKey: process.env.KIMI_API_KEY || process.env.VITE_KIMI_API_KEY,
+  baseURL: 'https://api.moonshot.cn/v1',
+  timeout: 60000,
+  maxRetries: 2
+});
 
 // System prompt pentru chatbot
 const SYSTEM_PROMPT = `Ești asistentul AI Digital Solutions - o companie românească de automatizări și software.
@@ -45,11 +54,7 @@ app.post('/api/chat', async (req, res) => {
       return res.status(400).json({ error: 'Mesajele sunt necesare' });
     }
 
-    const apiKey = process.env.KIMI_API_KEY || process.env.VITE_KIMI_API_KEY;
-    
-    if (!apiKey) {
-      return res.status(500).json({ error: 'API Key not configured' });
-    }
+    console.log('[Server] Received chat request with', messages.length, 'messages');
 
     // Construim mesajele pentru Kimi
     const apiMessages = [
@@ -60,43 +65,31 @@ app.post('/api/chat', async (req, res) => {
       }))
     ];
 
-    console.log('[Server] Calling Kimi API with', apiMessages.length, 'messages');
+    console.log('[Server] Calling Kimi API with OpenAI SDK...');
 
-    // Apelăm API-ul Kimi
-    const response = await fetch('https://api.moonshot.cn/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: 'kimi-k2-5',
-        messages: apiMessages,
-        temperature: 0.7,
-        max_tokens: 800
-      })
+    // Apelăm API-ul Kimi folosind OpenAI SDK
+    const response = await kimi.chat.completions.create({
+      model: 'kimi-k2-5',
+      messages: apiMessages,
+      temperature: 0.7,
+      max_tokens: 800
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('[Server] Kimi API error:', response.status, errorText);
-      return res.status(response.status).json({ 
-        error: 'Kimi API error', 
-        details: errorText 
-      });
-    }
-
-    const data = await response.json();
-    const reply = data.choices[0].message.content;
+    const reply = response.choices[0].message.content;
     
     console.log('[Server] Kimi response received');
     res.json({ reply });
     
   } catch (error) {
-    console.error('[Server] Error:', error);
+    console.error('[Server] Error:', error.message);
+    console.error('[Server] Error status:', error.status);
+    console.error('[Server] Error code:', error.code);
+    
     res.status(500).json({ 
       error: 'Server error', 
-      message: error.message 
+      message: error.message,
+      status: error.status,
+      code: error.code
     });
   }
 });
@@ -111,4 +104,5 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`Kimi API Key present:`, !!process.env.KIMI_API_KEY);
 });
