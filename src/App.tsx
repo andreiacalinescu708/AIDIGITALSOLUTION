@@ -980,110 +980,34 @@ function ChatWidget({ lang }: { lang: Language }) {
     }
   }
 
-  const SYSTEM_PROMPT = `Ești asistentul AI Digital Solutions - o companie românească de automatizări și software.
-
-DESPRE NOI:
-- Oferim soluții de automatizare pentru business-uri mici și mijlocii
-- Sediul: România
-- Contact: WhatsApp +40 771 123 522, Email: contact.aidigitals@gmail.com
-- Website: www.aidigitalsolutions.ro
-- Platforma noastră: www.openbill.ro (facturare online)
-
-SERVICII ȘI PREȚURI:
-1. Website-uri și Aplicații Android - de la 100 EUR
-   - Design modern, responsive, SEO, panou admin
-   
-2. Chatbot Telegram - de la 200 EUR
-   - Răspuns automat 24/7, preluare comenzi, notificări
-   
-3. Automatizare Facturi OCR - de la 200 EUR
-   - Citire automată facturi, extragere date, fără introducere manuală
-   - Economisire: 15+ ore/săptămână
-   
-4. CRM Automatizat - de la 200 EUR
-   - Captare lead-uri, follow-up automat, rapoarte în timp real
-   - Creștere conversii: 40%
-   
-5. Email Marketing - de la 200 EUR + 20-50 EUR/lună platformă
-   - Automatizări, șabloane personalizate, segmentare
-   
-6. Gestiune Stocuri - de la 200 EUR
-   - Monitorizare real-time, alerte stoc minim, comenzi automate
-   
-7. HR & Recrutare - de la 200 EUR
-   - Scanare CV-uri, matching candidați, programare interviuri
-   
-8. Social Media Automation - de la 200 EUR
-   - Postare programată, răspuns automat comentarii
-
-TIMP IMPLEMENTARE: 1-4 săptămâni (depinde de complexitate)
-
-REGULI DE RĂSPUNS:
-- Răspunde în română dacă utilizatorul scrie în română
-- Răspunde în engleză dacă utilizatorul scrie în engleză
-- Fii prietenos, profesional și concis
-- Oferă informații concrete despre prețuri și funcționalități
-- Îndeamnă la contact pe WhatsApp pentru oferte personalizate
-- Nu inventa informații care nu sunt în contextul de mai sus
-- Dacă nu știi ceva exact, sugerează contactarea pe WhatsApp`;
-
   const callKimiAPI = async (conversationHistory: {text: string, isUser: boolean}[]): Promise<string> => {
-    const apiKey = import.meta.env.VITE_KIMI_API_KEY;
-    
-    console.log('[Chatbot] API Key present:', !!apiKey, 'Length:', apiKey?.length || 0);
-    if (apiKey) {
-      console.log('[Chatbot] API Key starts with:', apiKey.substring(0, 10) + '...');
-      console.log('[Chatbot] API Key ends with:', '...' + apiKey.substring(apiKey.length - 10));
-    }
-    
-    // Dacă nu avem API key, folosim fallback rule-based
-    if (!apiKey) {
-      console.log('[Chatbot] No API key, using fallback');
-      await new Promise(resolve => setTimeout(resolve, 800))
-      const lastUserMessage = conversationHistory.filter(m => m.isUser).pop()
-      return getBotResponse(lastUserMessage?.text || '')
-    }
-    
     try {
-      // Construim array-ul de mesaje pentru API - includem istoricul conversației
-      const apiMessages = [
-        { role: 'system', content: SYSTEM_PROMPT },
-        // Luăm ultimele 10 mesaje din conversație pentru context (limităm să nu depășim token limit)
-        ...conversationHistory.slice(-10).map(msg => ({
-          role: msg.isUser ? 'user' : 'assistant',
-          content: msg.text
-        }))
-      ]
+      console.log('[Chatbot] Calling server API with', conversationHistory.length, 'messages');
       
-      console.log('[Chatbot] Calling Kimi API with', apiMessages.length, 'messages');
-      
-      const response = await fetch('https://api.moonshot.cn/v1/chat/completions', {
+      // Apelăm serverul nostru proxy în loc de API-ul Kimi direct
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'kimi-k2-5',
-          messages: apiMessages,
-          temperature: 0.7,
-          max_tokens: 800
+          messages: conversationHistory
         })
       })
       
-      console.log('[Chatbot] API response status:', response.status);
+      console.log('[Chatbot] Server response status:', response.status);
       
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('[Chatbot] API error body:', errorText);
-        throw new Error(`API error: ${response.status} - ${errorText}`)
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('[Chatbot] Server error:', errorData);
+        throw new Error(`Server error: ${response.status}`)
       }
       
       const data = await response.json()
-      console.log('[Chatbot] API response received successfully');
-      return data.choices[0].message.content
+      console.log('[Chatbot] Server response received');
+      return data.reply
     } catch (error) {
-      console.error('[Chatbot] Kimi API error:', error)
+      console.error('[Chatbot] API error:', error)
       // Fallback la rule-based în caz de eroare
       const lastUserMessage = conversationHistory.filter(m => m.isUser).pop()
       return getBotResponse(lastUserMessage?.text || '')
