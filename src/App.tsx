@@ -1064,7 +1064,7 @@ REGULI DE RĂSPUNS:
           'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: 'moonshot-v1-8k',
+          model: 'kimi-k2-5',
           messages: apiMessages,
           temperature: 0.7,
           max_tokens: 800
