@@ -70,19 +70,19 @@ const translations: Translations = {
   
   // Hero
   hero_title: { 
-    ro: 'Transformă-ți Afacerea cu Automatizări Inteligente', 
-    en: 'Transform Your Business with Smart Automations' 
+    ro: 'Economisește 3 ore pe zi. Automatizare facturi OCR pentru contabili.', 
+    en: 'Automated Invoice OCR for Accountants. Save 3 hours daily.' 
   },
   hero_subtitle: { 
-    ro: 'Soluții AI personalizate pentru firme, contabili și profesioniști. Economisește timp, redu costurile și crește productivitatea.', 
-    en: 'Custom AI solutions for businesses, accountants and professionals. Save time, reduce costs and increase productivity.' 
+    ro: 'Procesează automat 500+ facturi/lună. Validare CIF prin ANAF + integrare SAGA/WizCount/CIEL. Demo live în 15 minute.', 
+    en: 'Automatically process 500+ invoices/month. CIF validation via ANAF + SAGA/WizCount/CIEL integration. 15-min live demo.' 
   },
-  hero_cta: { ro: 'Cât economisești?', en: 'How much do you save?' },
-  hero_cta2: { ro: 'Vezi Soluțiile', en: 'See Solutions' },
-  hero_badge: { ro: 'Soluții AI pentru afaceri moderne', en: 'AI Solutions for Modern Business' },
-  hero_stats_1: { ro: 'Ore economisite lunar', en: 'Hours saved monthly' },
-  hero_stats_2: { ro: 'Reducere costuri', en: 'Cost reduction' },
-  hero_stats_3: { ro: 'Clienți mulțumiți', en: 'Happy clients' },
+  hero_cta: { ro: 'Vreau Demo Live', en: 'Book Live Demo' },
+  hero_cta2: { ro: 'Calculator Economii', en: 'Savings Calculator' },
+  hero_badge: { ro: 'Soluții AI pentru contabili', en: 'AI Solutions for Accountants' },
+  hero_stats_1: { ro: 'Facturi procesate', en: 'Invoices processed' },
+  hero_stats_2: { ro: 'Ore economisite/zi', en: 'Hours saved daily' },
+  hero_stats_3: { ro: 'Contabili mulțumiți', en: 'Happy accountants' },
   
   // Calculator Section
   calc_title: { ro: 'Calculator de Economii', en: 'Savings Calculator' },
@@ -90,7 +90,7 @@ const translations: Translations = {
     ro: 'Descoperă cât poți economisi cu automatizările noastre', 
     en: 'Discover how much you can save with our automations' 
   },
-  calc_employees: { ro: 'Număr angajați', en: 'Number of employees' },
+  calc_employees: { ro: 'Facturi procesate lunar', en: 'Invoices processed monthly' },
   calc_hours: { ro: 'Ore repetitive/săptămână', en: 'Repetitive hours/week' },
   calc_hourly: { ro: 'Cost oră (EUR)', en: 'Hourly cost (EUR)' },
   calc_result_title: { ro: 'Economii Anuale Estimate', en: 'Estimated Annual Savings' },
@@ -126,10 +126,10 @@ const translations: Translations = {
   },
   
   // Services Section
-  services_title: { ro: 'Soluții de Automatizare', en: 'Automation Solutions' },
+  services_title: { ro: 'Soluții Pentru Contabili', en: 'Solutions For Accountants' },
   services_subtitle: { 
-    ro: '15 automatizări inteligente care îți vor revoluționa modul de lucru', 
-    en: '15 smart automations that will revolutionize your workflow' 
+    ro: 'Automatizare facturi OCR + validare ANAF + integrare SAGA. Economisește 3 ore pe zi și elimină 100% erorile de introducere.',
+    en: 'Invoice OCR automation + ANAF validation + SAGA integration. Save 3 hours daily and eliminate 100% data entry errors.' 
   },
   services_click_info: { 
     ro: 'Click pe orice soluție pentru a vedea detaliile', 
@@ -202,10 +202,10 @@ const translations: Translations = {
   modal_contact: { ro: 'Contactează-ne pentru detalii', en: 'Contact us for details' },
 }
 
-// Service data
+// Services Data
 interface Service {
   id: string
-  icon: React.ReactNode
+  icon: JSX.Element
   title: { ro: string; en: string }
   shortDesc: { ro: string; en: string }
   fullDesc: { ro: string; en: string }
@@ -216,29 +216,130 @@ interface Service {
 
 const services: Service[] = [
   {
-    id: 'website-apps',
-    icon: <Smartphone className="w-8 h-8" />,
+    id: 'ocr-invoices',
+    icon: <FileText className="w-8 h-8" />,
     title: { 
-      ro: 'Website-uri și Aplicații Android', 
-      en: 'Websites & Android Apps' 
+      ro: 'Procesare Facturi OCR', 
+      en: 'Invoice OCR Processing' 
     },
     shortDesc: { 
-      ro: 'Dezvoltare website-uri moderne și aplicații mobile Android personalizate', 
-      en: 'Modern website development and custom Android mobile applications' 
+      ro: 'Extrage automat date din facturi în 3 secunde cu 99% acuratețe', 
+      en: 'Automatically extract invoice data in 3 seconds with 99% accuracy' 
     },
     fullDesc: { 
-      ro: 'Creăm website-uri profesionale, moderne și optimizate pentru toate dispozitivele, precum și aplicații Android native pentru afacerea ta. De la site-uri de prezentare, magazine online, până la aplicații mobile complexe cu funcționalități personalizate.',
-      en: 'We create professional, modern websites optimized for all devices, as well as native Android applications for your business. From presentation websites, online stores, to complex mobile applications with custom functionalities.'
+      ro: 'Sistem care procesează automat facturi PDF, scanate sau foto folosind OCR avansat. Extrage CIF, serie factură, dată, valoare, TVA și linii de produse. Se integrează direct cu SAGA, WizCount și CIEL pentru import automat fără introducere manuală.',
+      en: 'System that automatically processes PDF, scanned or photo invoices using advanced OCR. Extracts CIF, invoice series, date, value, VAT and product lines. Integrates directly with SAGA, WizCount and CIEL for automatic import without manual entry.'
     },
     features: {
-      ro: ['Design responsive', 'Optimizare SEO', 'Aplicații Android native', 'Panou administrare', 'Integrare API-uri', 'Suport tehnic'],
-      en: ['Responsive design', 'SEO optimization', 'Native Android apps', 'Admin panel', 'API integration', 'Technical support']
+      ro: ['OCR avansat 99% acuratețe', 'Suport facturi PDF/foto', 'Extragere automată CIF + TVA', 'Validare date ANAF în timp real', 'Arhivare digitală 10 ani'],
+      en: ['Advanced OCR 99% accuracy', 'Support PDF/photo invoices', 'Automatic CIF + VAT extraction', 'Real-time ANAF data validation', 'Digital archiving 10 years']
     },
     benefits: {
-      ro: ['Prezență online profesională', 'Accesibilitate pe mobil', 'Experiență utilizator îmbunătățită', 'Creștere vizibilitate'],
-      en: ['Professional online presence', 'Mobile accessibility', 'Improved user experience', 'Increased visibility']
+      ro: ['Economisire 15+ ore/săptămână', 'Eliminare 100% erori umane', 'Procesare 500+ facturi/lună'],
+      en: ['Save 15+ hours/week', 'Eliminate 100% human errors', 'Process 500+ invoices/month']
     },
-    price: { ro: 'începând de la 100 EUR', en: 'starting from 100 EUR' }
+    price: { ro: 'începând de la 300 EUR', en: 'starting from 300 EUR' }
+  {
+    id: 'anaf-validation',
+    icon: <UserCheck className="w-8 h-8" />,
+    title: { 
+      ro: 'Validare CIF ANAF', 
+      en: 'ANAF CIF Validation' 
+    },
+    shortDesc: { 
+      ro: 'Verificare automată CIF în baza de date ANAF și alerte TVA la plată', 
+      en: 'Automatic CIF verification in ANAF database and VAT payment alerts' 
+    },
+    fullDesc: { 
+      ro: 'Validare automată a CIF-urilor din facturi prin conexiune directă cu API-ul ANAF. Verifică dacă firma este înregistrată în scopuri de TVA, identifică firme cu risc și trimite alerte automate pentru TVA la plată sau de recuperat.',
+      en: 'Automatic validation of CIFs from invoices through direct connection with ANAF API. Verifies if the company is VAT registered, identifies high-risk companies and sends automatic alerts for VAT to be paid or recovered.'
+    },
+    features: {
+      ro: ['Conexiune directă ANAF API', 'Verificare TVA în timp real', 'Alerte TVA plată/recuperare', 'Lista firme cu risc', 'Export rapoarte D394-ready'],
+      en: ['Direct ANAF API connection', 'Real-time VAT verification', 'VAT payment/recovery alerts', 'High-risk company list', 'D394-ready report export']
+    },
+    benefits: {
+      ro: ['Conformitate ANAF 100%', 'Evitare amenzi și penalități', 'Identificare riscuri în avans'],
+      en: ['100% ANAF compliance', 'Avoid fines and penalties', 'Identify risks in advance']
+    },
+    price: { ro: 'începând de la 150 EUR', en: 'starting from 150 EUR' }
+  },
+  {
+    id: 'saga-sync',
+    icon: <Users className="w-8 h-8" />,
+    title: { 
+      ro: 'Sincronizare SAGA/WizCount/CIEL', 
+      en: 'SAGA/WizCount/CIEL Sync' 
+    },
+    shortDesc: { 
+      ro: 'Import automat facturi în soft-ul de contabilitate fără intervenție manuală', 
+      en: 'Automatic invoice import into accounting software without manual intervention' 
+    },
+    fullDesc: { 
+      ro: 'Conector direct între sistemul nostru OCR și soft-urile de contabilitate populare (SAGA, WizCount, CIEL). Facturile procesate sunt importate automat în nomenclatoare, jurnale de cumpărări și stocuri cu 0 introducere manuală.',
+      en: 'Direct connector between our OCR system and popular accounting software (SAGA, WizCount, CIEL). Processed invoices are automatically imported into catalogs, purchase journals and stock with 0 manual entry.'
+    },
+    features: {
+      ro: ['Conector SAGA direct', 'Import automat furnizori', 'Import jurnal cumpărări', 'Actualizare stocuri', 'Suport WizCount și CIEL'],
+      en: ['Direct SAGA connector', 'Auto supplier import', 'Purchase journal import', 'Stock updates', 'WizCount and CIEL support']
+    },
+    benefits: {
+      ro: ['Eliminare 100% erori de import', 'Actualizare în timp real', 'Funcționează cu soft-ul existent'],
+      en: ['Eliminate 100% import errors', 'Real-time updates', 'Works with existing software']
+    },
+    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
+  },
+  {
+    id: 'caen-classification',
+    icon: <FolderKanban className="w-8 h-8" />,
+    title: { 
+      ro: 'Clasificare Cheltuieli CAEN', 
+      en: 'CAEN Expense Classification' 
+    },
+    shortDesc: { 
+      ro: 'Clasificare automată a cheltuielilor pe coduri CAEN și analiză deductibilitate', 
+      en: 'Automatic classification of expenses by CAEN codes and deductibility analysis' 
+    },
+    fullDesc: { 
+      ro: 'Sistem care citește fiecare linie din facturi și clasifică automat cheltuielile pe coduri CAEN corecte. Analizează deductibilitatea TVA și a cheltuielilor, și generează rapoarte pentru declarații fiscale.',
+      en: 'System that reads every line from invoices and automatically classifies expenses into correct CAEN codes. Analyzes VAT and expense deductibility, and generates reports for tax declarations.'
+    },
+    features: {
+      ro: ['AI clasificare cheltuieli', 'Bază date CAEN completă', 'Analiză deductibilitate TVA', 'Rapoarte fiscale ready', 'Reguli personalizabile'],
+      en: ['AI expense classification', 'Complete CAEN database', 'VAT deductibility analysis', 'Tax-ready reports', 'Customizable rules']
+    },
+    benefits: {
+      ro: ['Conformitate fiscală maximă', 'Economisire 5+ ore/săptămână', 'Zero erori de clasificare'],
+      en: ['Maximum tax compliance', 'Save 5+ hours/week', 'Zero classification errors']
+    },
+    price: { ro: 'începând de la 250 EUR', en: 'starting from 250 EUR' }
+  },
+  {
+    id: 'legal-archive',
+    icon: <Bot className="w-8 h-8" />,
+    title: { 
+      ro: 'Arhivare Digitală Legală', 
+      en: 'Legal Digital Archiving' 
+    },
+    shortDesc: { 
+      ro: 'Arhivare facturi conform Legea 135/2023 cu semnătură și timestamp digital', 
+      en: 'Invoice archiving according to Law 135/2023 with digital signature and timestamp' 
+    },
+    fullDesc: { 
+      ro: 'Soluție completă de arhivare digitală conform legislației românești. Fiecare factură este stocată cu semnătură electronică, timestamp întărit și hash criptografic. Acces rapid la orice document în 3 secunde, eliminând nevoia arhivei fizice.',
+      en: 'Complete digital archiving solution according to Romanian legislation. Each invoice is stored with electronic signature, reinforced timestamp and cryptographic hash. Fast access to any document in 3 seconds, eliminating the need for physical archives.'
+    },
+    features: {
+      ro: ['Semnătură digitală legală', 'Timestamp întărit', 'Criptare AES-256', 'Acces rapid documente', 'Audit trail complet'],
+      en: ['Legal digital signature', 'Reinforced timestamp', 'AES-256 encryption', 'Fast document access', 'Complete audit trail']
+    },
+    benefits: {
+      ro: ['Conformitate Legea 135/2023', 'Reducere spațiu cu 90%', 'Acces instant orice factură'],
+      en: ['Law 135/2023 compliance', '90% space reduction', 'Instant access to any invoice']
+    },
+    price: { ro: 'începând de la 180 EUR', en: 'starting from 180 EUR' }
+  }
+]
   },
   {
     id: 'telegram-bot',
@@ -264,357 +365,6 @@ const services: Service[] = [
       en: ['68% reduction in response time', 'Permanent availability', 'Human resource savings']
     },
     price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'invoices',
-    icon: <FileText className="w-8 h-8" />,
-    title: { 
-      ro: 'Automatizare Facturi și Chitanțe', 
-      en: 'Invoice & Receipt Automation' 
-    },
-    shortDesc: { 
-      ro: 'Procesare automată a documentelor financiare cu OCR inteligent', 
-      en: 'Automatic processing of financial documents with smart OCR' 
-    },
-    fullDesc: { 
-      ro: 'Sistem care extrage automat date din facturi și chitanțe folosind tehnologie OCR avansată. Documentele sunt scanate, categorizate și introduse automat în sistemul tău de contabilitate, eliminând introducerea manuală a datelor.',
-      en: 'A system that automatically extracts data from invoices and receipts using advanced OCR technology. Documents are scanned, categorized and automatically entered into your accounting system, eliminating manual data entry.'
-    },
-    features: {
-      ro: ['OCR avansat pentru extragere date', 'Categorizare automată', 'Integrare QuickBooks/Xero', 'Validare automată', 'Arhivare digitală'],
-      en: ['Advanced OCR for data extraction', 'Automatic categorization', 'QuickBooks/Xero integration', 'Automatic validation', 'Digital archiving']
-    },
-    benefits: {
-      ro: ['Economisire 15+ ore pe săptămână', 'Eliminare erori de introducere', 'Procesare mai rapidă'],
-      en: ['Save 15+ hours per week', 'Eliminate entry errors', 'Faster processing']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'crm',
-    icon: <Users className="w-8 h-8" />,
-    title: { 
-      ro: 'Sistem CRM Automatizat', 
-      en: 'Automated CRM System' 
-    },
-    shortDesc: { 
-      ro: 'Gestionare automată a relațiilor cu clienții și pipeline-ul de vânzări', 
-      en: 'Automated customer relationship management and sales pipeline' 
-    },
-    fullDesc: { 
-      ro: 'CRM inteligent care automatizează întregul proces de vânzări. De la captarea lead-urilor până la follow-up automat, scorarea lead-urilor și raportarea performanței. Sistemul funcționează în fundal, astfel încât echipa ta să se poată concentra pe închiderea afacerilor.',
-      en: 'Smart CRM that automates the entire sales process. From lead capture to automatic follow-up, lead scoring and performance reporting. The system works in the background so your team can focus on closing deals.'
-    },
-    features: {
-      ro: ['Captare lead-uri automată', 'Scorare inteligentă', 'Follow-up automat', 'Rapoarte în timp real', 'Integrare email'],
-      en: ['Automatic lead capture', 'Smart scoring', 'Automatic follow-up', 'Real-time reports', 'Email integration']
-    },
-    benefits: {
-      ro: ['Creștere cu 40% a conversiilor', 'Pipeline curat și organizat', 'Forecasting precis'],
-      en: ['40% increase in conversions', 'Clean and organized pipeline', 'Accurate forecasting']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'email-marketing',
-    icon: <Mail className="w-8 h-8" />,
-    title: { 
-      ro: 'Automatizare Email Marketing', 
-      en: 'Email Marketing Automation' 
-    },
-    shortDesc: { 
-      ro: 'Campanii email personalizate și declanșate de comportamentul utilizatorilor', 
-      en: 'Personalized email campaigns triggered by user behavior' 
-    },
-    fullDesc: { 
-      ro: 'Sistem de marketing prin email care trimite mesaje personalizate bazate pe acțiunile utilizatorilor. De la email-uri de bun venit, abandon de coș, reactivare clienți inactivi, până la campanii de upsell și cross-sell automatizate.',
-      en: 'Email marketing system that sends personalized messages based on user actions. From welcome emails, cart abandonment, reactivation of inactive customers, to automated upsell and cross-sell campaigns.'
-    },
-    features: {
-      ro: ['Segmentare automată', 'Trigger-uri comportamentale', 'A/B testing', 'Personalizare dinamică', 'Analize detaliate'],
-      en: ['Automatic segmentation', 'Behavioral triggers', 'A/B testing', 'Dynamic personalization', 'Detailed analytics']
-    },
-    benefits: {
-      ro: ['ROI măsurabil', 'Engagement crescut', 'Loyalty îmbunătățit'],
-      en: ['Measurable ROI', 'Increased engagement', 'Improved loyalty']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'project-management',
-    icon: <FolderKanban className="w-8 h-8" />,
-    title: { 
-      ro: 'Management Proiecte Automatizat', 
-      en: 'Automated Project Management' 
-    },
-    shortDesc: { 
-      ro: 'Gestionare inteligentă a task-urilor, deadline-uri și resurse', 
-      en: 'Smart management of tasks, deadlines and resources' 
-    },
-    fullDesc: { 
-      ro: 'Sistem care automatizează fluxul de lucru în proiecte. Task-uri create automat din email-uri, reminder-e pentru deadline-uri, alocare inteligentă a resurselor și rapoarte automate de progres. Toate integrate cu tool-urile tale preferate.',
-      en: 'System that automates workflow in projects. Tasks automatically created from emails, deadline reminders, intelligent resource allocation and automatic progress reports. All integrated with your favorite tools.'
-    },
-    features: {
-      ro: ['Creare task-uri din email', 'Reminder-e inteligente', 'Alocare resurse', 'Dependențe automate', 'Rapoarte progres'],
-      en: ['Task creation from email', 'Smart reminders', 'Resource allocation', 'Automatic dependencies', 'Progress reports']
-    },
-    benefits: {
-      ro: ['Reducere timp de coordonare', 'Mai puține deadline-uri ratate', 'Vizibilitate completă'],
-      en: ['Reduced coordination time', 'Fewer missed deadlines', 'Complete visibility']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'hr',
-    icon: <UserPlus className="w-8 h-8" />,
-    title: { 
-      ro: 'Automatizare Resurse Umane (HR)', 
-      en: 'HR Automation' 
-    },
-    shortDesc: { 
-      ro: 'Procese HR automatizate de la recrutare la onboarding', 
-      en: 'Automated HR processes from recruitment to onboarding' 
-    },
-    fullDesc: { 
-      ro: 'Soluție completă pentru automatizarea proceselor de HR. Scanare și scorare automată a CV-urilor, programare interviuri, onboarding digital pentru angajați noi și gestionarea documentelor. Reduce timpul administrativ cu până la 70%.',
-      en: 'Complete solution for automating HR processes. Automatic CV scanning and scoring, interview scheduling, digital onboarding for new employees and document management. Reduces administrative time by up to 70%.'
-    },
-    features: {
-      ro: ['Scanare CV-uri cu AI', 'Programare interviuri', 'Onboarding digital', 'Gestionare documente', 'Rapoarte HR'],
-      en: ['AI CV scanning', 'Interview scheduling', 'Digital onboarding', 'Document management', 'HR reports']
-    },
-    benefits: {
-      ro: ['Procese mai rapide', 'Experiență mai bună pentru candidați', 'Conformitate îmbunătățită'],
-      en: ['Faster processes', 'Better candidate experience', 'Improved compliance']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'inventory',
-    icon: <Package className="w-8 h-8" />,
-    title: { 
-      ro: 'Sistem Gestiune Stocuri Inteligent', 
-      en: 'Smart Inventory Management' 
-    },
-    shortDesc: { 
-      ro: 'Gestionare automată a stocurilor cu predicție a cererii', 
-      en: 'Automated inventory management with demand forecasting' 
-    },
-    fullDesc: { 
-      ro: 'Sistem inteligent de gestiune a stocurilor care previne rupturile de stoc și supra-stocarea. Folosește algoritmi de predicție pentru a anticipa cererea, generează automat comenzi către furnizori și sincronizează stocul între toate canalele de vânzare.',
-      en: 'Smart inventory management system that prevents stockouts and overstocking. Uses prediction algorithms to anticipate demand, automatically generates orders to suppliers and synchronizes stock across all sales channels.'
-    },
-    features: {
-      ro: ['Predicție cerere', 'Comenzi automate', 'Sincronizare multi-canal', 'Alerte stoc minim', 'Rapoarte detaliate'],
-      en: ['Demand forecasting', 'Automatic orders', 'Multi-channel sync', 'Minimum stock alerts', 'Detailed reports']
-    },
-    benefits: {
-      ro: ['Reducere stoc blocat', 'Mai puține rupturi de stoc', 'Cash flow îmbunătățit'],
-      en: ['Reduced dead stock', 'Fewer stockouts', 'Improved cash flow']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'financial-reports',
-    icon: <BarChart3 className="w-8 h-8" />,
-    title: { 
-      ro: 'Automatizare Raportări Financiare', 
-      en: 'Financial Reporting Automation' 
-    },
-    shortDesc: { 
-      ro: 'Rapoarte financiare generate automat și actualizate în timp real', 
-      en: 'Automatically generated financial reports updated in real-time' 
-    },
-    fullDesc: { 
-      ro: 'Sistem care generează automat rapoarte financiare personalizate: P&L, bilanț, cash flow, analize de venituri și cheltuieli. Rapoartele sunt actualizate în timp real și pot fi programate pentru trimitere automatizată către stakeholderi.',
-      en: 'System that automatically generates custom financial reports: P&L, balance sheet, cash flow, revenue and expense analysis. Reports are updated in real-time and can be scheduled for automatic delivery to stakeholders.'
-    },
-    features: {
-      ro: ['Rapoarte personalizate', 'Actualizare real-time', 'Programare trimiteri', 'Dashboard interactiv', 'Export multi-format'],
-      en: ['Custom reports', 'Real-time updates', 'Scheduled delivery', 'Interactive dashboard', 'Multi-format export']
-    },
-    benefits: {
-      ro: ['Decizii mai rapide', 'Transparență financiară', 'Economisire timp raportare'],
-      en: ['Faster decisions', 'Financial transparency', 'Time savings on reporting']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'website-chatbot',
-    icon: <MessageSquare className="w-8 h-8" />,
-    title: { 
-      ro: 'Chatbot Website Inteligent', 
-      en: 'Smart Website Chatbot' 
-    },
-    shortDesc: { 
-      ro: 'Asistent virtual pe site-ul tău pentru conversii și suport', 
-      en: 'Virtual assistant on your website for conversions and support' 
-    },
-    fullDesc: { 
-      ro: 'Chatbot AI avansat pentru site-ul tău care poate răspunde la întrebări, colecta lead-uri, programa meeting-uri și ghida vizitatorii prin procesul de cumpărare. Se integrează cu CRM-ul și sistemul de ticketing pentru o experiență completă.',
-      en: 'Advanced AI chatbot for your website that can answer questions, collect leads, schedule meetings and guide visitors through the purchase process. Integrates with CRM and ticketing system for a complete experience.'
-    },
-    features: {
-      ro: ['Conversații naturale', 'Colectare lead-uri', 'Programare meeting-uri', 'Integrare CRM', 'Analize conversații'],
-      en: ['Natural conversations', 'Lead collection', 'Meeting scheduling', 'CRM integration', 'Conversation analytics']
-    },
-    benefits: {
-      ro: ['Creștere conversii', 'Suport 24/7', 'Date valoroase despre clienți'],
-      en: ['Increased conversions', '24/7 support', 'Valuable customer data']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'calendar',
-    icon: <Calendar className="w-8 h-8" />,
-    title: { 
-      ro: 'Automatizare Programări și Calendar', 
-      en: 'Appointment & Calendar Automation' 
-    },
-    shortDesc: { 
-      ro: 'Sistem inteligent de programări cu sincronizare automată', 
-      en: 'Smart appointment system with automatic synchronization' 
-    },
-    fullDesc: { 
-      ro: 'Sistem complet pentru gestionarea programărilor. Clienții pot programa online, primesc reminder-e automate prin SMS/email, iar calendarul se sincronizează cu toate dispozitivele tale. Include gestionarea anulărilor și reprogramărilor.',
-      en: 'Complete system for managing appointments. Customers can book online, receive automatic reminders via SMS/email, and the calendar syncs with all your devices. Includes management of cancellations and rescheduling.'
-    },
-    features: {
-      ro: ['Booking online', 'Reminder-e SMS/Email', 'Sincronizare calendar', 'Gestionare anulări', 'Plăți online'],
-      en: ['Online booking', 'SMS/Email reminders', 'Calendar sync', 'Cancellation management', 'Online payments']
-    },
-    benefits: {
-      ro: ['Reducere no-show-uri', 'Timp economisit', 'Experiență clienți îmbunătățită'],
-      en: ['Reduced no-shows', 'Time saved', 'Improved customer experience']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'ticketing',
-    icon: <Ticket className="w-8 h-8" />,
-    title: { 
-      ro: 'Sistem Ticketing Suport Clienți', 
-      en: 'Customer Support Ticketing System' 
-    },
-    shortDesc: { 
-      ro: 'Gestionare automată a tichetelor de suport cu routing inteligent', 
-      en: 'Automatic management of support tickets with smart routing' 
-    },
-    fullDesc: { 
-      ro: 'Sistem de ticketing care categorizează automat solicitările, le direcționează către departamentul potrivit și prioritizează în funcție de urgență. Include bază de cunoștințe, SLA tracking și rapoarte de performanță.',
-      en: 'Ticketing system that automatically categorizes requests, routes them to the right department and prioritizes based on urgency. Includes knowledge base, SLA tracking and performance reports.'
-    },
-    features: {
-      ro: ['Categorizare automată', 'Routing inteligent', 'Bază de cunoștințe', 'SLA tracking', 'Rapoarte performanță'],
-      en: ['Automatic categorization', 'Smart routing', 'Knowledge base', 'SLA tracking', 'Performance reports']
-    },
-    benefits: {
-      ro: ['Timp de rezolvare redus', 'Satisfacție clienți crescută', 'Eficiență echipă'],
-      en: ['Reduced resolution time', 'Increased customer satisfaction', 'Team efficiency']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'social-media',
-    icon: <Share2 className="w-8 h-8" />,
-    title: { 
-      ro: 'Automatizare Social Media', 
-      en: 'Social Media Automation' 
-    },
-    shortDesc: { 
-      ro: 'Programare, publicare și monitorizare automată pe rețele sociale', 
-      en: 'Automatic scheduling, publishing and monitoring on social media' 
-    },
-    fullDesc: { 
-      ro: 'Sistem care automatizează prezența ta pe social media. Programează postări pe multiple platforme, monitorizează mențiunile brandului, răspunde automat la comentarii comune și generează rapoarte de performanță.',
-      en: 'System that automates your social media presence. Schedule posts on multiple platforms, monitor brand mentions, automatically respond to common comments and generate performance reports.'
-    },
-    features: {
-      ro: ['Programare multi-platformă', 'Monitorizare mențiuni', 'Răspunsuri automate', 'Reciclare conținut', 'Analize detaliate'],
-      en: ['Multi-platform scheduling', 'Mention monitoring', 'Auto responses', 'Content recycling', 'Detailed analytics']
-    },
-    benefits: {
-      ro: ['Prezență constantă', 'Economisire timp', 'Engagement crescut'],
-      en: ['Consistent presence', 'Time savings', 'Increased engagement']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'documents',
-    icon: <FileSignature className="w-8 h-8" />,
-    title: { 
-      ro: 'Sistem Documente și Contracte', 
-      en: 'Documents & Contracts System' 
-    },
-    shortDesc: { 
-      ro: 'Gestionare, generare și semnare electronică a documentelor', 
-      en: 'Management, generation and electronic signing of documents' 
-    },
-    fullDesc: { 
-      ro: 'Platformă completă pentru gestionarea documentelor. Generează automat contracte din template-uri, trimite pentru semnare electronică, stochează în cloud securizat și trimite reminder-e pentru reînnoiri. Perfect pentru firmele cu multe contracte.',
-      en: 'Complete platform for document management. Automatically generate contracts from templates, send for electronic signature, store in secure cloud and send reminders for renewals. Perfect for companies with many contracts.'
-    },
-    features: {
-      ro: ['Template-uri personalizate', 'Semnare electronică', 'Stocare cloud', 'Reminder-e reînnoiri', 'Căutare avansată'],
-      en: ['Custom templates', 'Electronic signature', 'Cloud storage', 'Renewal reminders', 'Advanced search']
-    },
-    benefits: {
-      ro: ['Procese mai rapide', 'Hârtie eliminată', 'Conformitate legală'],
-      en: ['Faster processes', 'Paper eliminated', 'Legal compliance']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'onboarding',
-    icon: <UserCheck className="w-8 h-8" />,
-    title: { 
-      ro: 'Automatizare Onboarding Clienți', 
-      en: 'Customer Onboarding Automation' 
-    },
-    shortDesc: { 
-      ro: 'Proces de integrare clienți nou automatizat și personalizat', 
-      en: 'Automated and personalized new customer integration process' 
-    },
-    fullDesc: { 
-      ro: 'Sistem care creează o experiență de onboarding fluidă pentru clienții noi. Trimite automat email-uri de bun venit, tutoriale personalizate, programează call-uri de introducere și colectează feedback. Crește retenția și reduce churn-ul.',
-      en: 'System that creates a smooth onboarding experience for new customers. Automatically sends welcome emails, personalized tutorials, schedules intro calls and collects feedback. Increases retention and reduces churn.'
-    },
-    features: {
-      ro: ['Email-uri de bun venit', 'Tutoriale personalizate', 'Programare call-uri', 'Colectare feedback', 'Tracking progres'],
-      en: ['Welcome emails', 'Personalized tutorials', 'Call scheduling', 'Feedback collection', 'Progress tracking']
-    },
-    benefits: {
-      ro: ['Retenție îmbunătățită', 'Churn redus', 'Experiență premium'],
-      en: ['Improved retention', 'Reduced churn', 'Premium experience']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  },
-  {
-    id: 'notifications',
-    icon: <Bell className="w-8 h-8" />,
-    title: { 
-      ro: 'Sistem Notificări și Alerte', 
-      en: 'Notifications & Alerts System' 
-    },
-    shortDesc: { 
-      ro: 'Alerte inteligente pentru evenimente critice din afacerea ta', 
-      en: 'Smart alerts for critical events in your business' 
-    },
-    fullDesc: { 
-      ro: 'Sistem de monitorizare și alertare care te notifică instant despre evenimentele importante: stocuri critice, plăți primite, deadline-uri apropiate, comportamente anormale. Alertele pot fi primite pe email, SMS, Slack sau Telegram.',
-      en: 'Monitoring and alerting system that instantly notifies you about important events: critical stock, received payments, approaching deadlines, abnormal behaviors. Alerts can be received via email, SMS, Slack or Telegram.'
-    },
-    features: {
-      ro: ['Alerte personalizate', 'Multi-canal', 'Trigger-uri condiționale', 'Escalare automată', 'Dashboard monitorizare'],
-      en: ['Custom alerts', 'Multi-channel', 'Conditional triggers', 'Auto escalation', 'Monitoring dashboard']
-    },
-    benefits: {
-      ro: ['Reacție rapidă', 'Probleme prevenite', 'Control total'],
-      en: ['Quick reaction', 'Prevented issues', 'Total control']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-  }
 ]
 
 // FAQ Data
@@ -1580,29 +1330,29 @@ function App() {
               {/* Rows */}
               {[
                 {
-                  manual: lang === 'ro' ? 'Introduci facturi una câte una în calculator' : 'Enter invoices one by one into computer',
-                  auto: lang === 'ro' ? 'Scanează și extrage date din 100 facturi în 2 minute' : 'Scans and extracts data from 100 invoices in 2 minutes',
+                  manual: lang === 'ro' ? 'Introduci facturi manual în SAGA/CIEL 5h/zi' : 'Manually enter invoices into SAGA/CIEL 5h/day',
+                  auto: lang === 'ro' ? 'OCR extrage și importă automat 500 facturi/zi' : 'OCR extracts and auto-imports 500 invoices/day',
                   icon: <FileText className="w-5 h-5" />
                 },
                 {
-                  manual: lang === 'ro' ? 'Răspunzi la aceleași întrebări de 50x pe zi' : 'Answer the same questions 50x daily',
-                  auto: lang === 'ro' ? 'Răspunde 24/7 cu informații din baza de date' : 'Answers 24/7 with info from database',
-                  icon: <MessageSquare className="w-5 h-5" />
+                  manual: lang === 'ro' ? 'Verifici manual CIF pe site-ul ANAF' : 'Manually check CIF on ANAF website',
+                  auto: lang === 'ro' ? 'Validare automată CIF + alerte TVA în timp real' : 'Auto CIF validation + real-time VAT alerts',
+                  icon: <UserCheck className="w-5 h-5" />
                 },
                 {
-                  manual: lang === 'ro' ? 'Cauți printre sute de CV-uri manual' : 'Search through hundreds of CVs manually',
-                  auto: lang === 'ro' ? 'Selectează automat top 10 candidați potriviți' : 'Automatically selects top 10 matching candidates',
-                  icon: <Users className="w-5 h-5" />
+                  manual: lang === 'ro' ? 'Clasifici cheltuieli manual pe coduri CAEN' : 'Manually classify expenses by CAEN codes',
+                  auto: lang === 'ro' ? 'AI clasifică automat pe CAEN cu 99% acuratețe' : 'AI auto-classifies by CAEN with 99% accuracy',
+                  icon: <FolderKanban className="w-5 h-5" />
                 },
                 {
-                  manual: lang === 'ro' ? 'Verifici stocul în Excel zilnic' : 'Check stock in Excel daily',
-                  auto: lang === 'ro' ? 'Trimite alerte automate când stocul e critic' : 'Sends automatic alerts when stock is critical',
-                  icon: <Package className="w-5 h-5" />
+                  manual: lang === 'ro' ? 'Cauți facturi în arhiva fizică 30+ minute' : 'Search invoices in physical archive 30+ minutes',
+                  auto: lang === 'ro' ? 'Acces digital la orice factură în 3 secunde' : 'Digital access to any invoice in 3 seconds',
+                  icon: <Search className="w-5 h-5" />
                 },
                 {
-                  manual: lang === 'ro' ? 'Trimite email-uri de reminder manual' : 'Send reminder emails manually',
-                  auto: lang === 'ro' ? 'Programează și trimite email-uri automat' : 'Schedules and sends emails automatically',
-                  icon: <Mail className="w-5 h-5" />
+                  manual: lang === 'ro' ? 'Pregătești rapoarte pentru D394 manual' : 'Manually prepare D394 reports',
+                  auto: lang === 'ro' ? 'Generează rapoarte D394-ready automat' : 'Auto-generates D394-ready reports',
+                  icon: <BarChart3 className="w-5 h-5" />
                 }
               ].map((row, idx) => (
                 <motion.div 
