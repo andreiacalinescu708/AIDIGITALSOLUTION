@@ -340,32 +340,6 @@ const services: Service[] = [
     price: { ro: 'începând de la 180 EUR', en: 'starting from 180 EUR' }
   }
 ]
-  },
-  {
-    id: 'telegram-bot',
-    icon: <Bot className="w-8 h-8" />,
-    title: { 
-      ro: 'Chatbot Telegram pentru Suport Clienți', 
-      en: 'Telegram Chatbot for Customer Support' 
-    },
-    shortDesc: { 
-      ro: 'Bot inteligent pe Telegram care răspunde instant la întrebări clienților', 
-      en: 'Smart Telegram bot that instantly answers customer questions' 
-    },
-    fullDesc: { 
-      ro: 'Un chatbot avansat pe Telegram care funcționează 24/7 pentru a răspunde la întrebările clienților tăi. Poate gestiona programări, oferi informații despre produse, prelua comenzi și escalada conversațiile complexe către agenți umani când este necesar.',
-      en: 'An advanced Telegram chatbot that works 24/7 to answer your customers\' questions. It can handle appointments, provide product information, take orders and escalate complex conversations to human agents when needed.'
-    },
-    features: {
-      ro: ['Răspunsuri instantanee 24/7', 'Integrare cu CRM', 'Gestionare programări', 'Preluare comenzi', 'Escalare inteligentă'],
-      en: ['Instant responses 24/7', 'CRM integration', 'Appointment management', 'Order taking', 'Smart escalation']
-    },
-    benefits: {
-      ro: ['Reducere cu 68% a timpului de răspuns', 'Disponibilitate permanentă', 'Economisire resurse umane'],
-      en: ['68% reduction in response time', 'Permanent availability', 'Human resource savings']
-    },
-    price: { ro: 'începând de la 200 EUR', en: 'starting from 200 EUR' }
-]
 
 // FAQ Data
 const faqData = {
